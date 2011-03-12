@@ -1,0 +1,35 @@
+#OSX
+.DS_Store
+Icon?
+._*
+.Spotlight-V100
+.Trashes
+
+#Windows
+Thumbs.db
+
+#VS projects
+*.suo
+*.ncb
+*.vcproj.*
+
+#Xcode projects
+*.pbxuser
+*.mode1v3
+
+#Build Folders
+WDL/IPlug/build/*
+WDL/IPlug/Example/build/*
+WDL/lice/test/build/*
+WDL/swell/sample_project/build/*
+build-mac
+build-win
+
+#VST Files
+VST_SDK/aeffect.h
+VST_SDK/aeffectx.h
+
+#Misc
+#*.zip
+
+
