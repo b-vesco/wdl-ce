@@ -25,3 +25,7 @@ WDL includes the following 3rd party libraries (which are all similarly licensed
 * [zlib](http://www.zlib.net/)
 
 Discuss WDL on [the WDL forum](http://forum.cockos.com/forumdisplay.php?f=32)
+
+## WDL Community Edition
+
+The WDL CE is intended to share the same license as the Cockos edition. You should be comfortable with this if you plan to contribute.
