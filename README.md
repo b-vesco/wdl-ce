@@ -1,6 +1,6 @@
 # WDL
 
-[Cockos WDL Home|http://www.cockos.com/wdl/]
+[Cockos WDL Home](http://www.cockos.com/wdl/)
 
 ## Cockos WDL License
 
@@ -18,10 +18,10 @@ Permission is granted to anyone to use this software for any purpose, including 
 
 WDL includes the following 3rd party libraries (which are all similarly licensed):
 
-* [JNetLib|http://www.nullsoft.com/free/jnetlib]
-* [LibPNG|http://www.libpng.org/pub/png]
-* [GifLib|http://sourceforge.net/projects/libungif]
-* [JPEGLib|http://www.ijg.org/]
-* [zlib|http://www.zlib.net/]
+* [JNetLib](http://www.nullsoft.com/free/jnetlib)
+* [LibPNG](http://www.libpng.org/pub/png)
+* [GifLib](http://sourceforge.net/projects/libungif)
+* [JPEGLib](http://www.ijg.org/)
+* [zlib](http://www.zlib.net/)
 
-Discuss WDL on [the WDL forum|http://forum.cockos.com/forumdisplay.php?f=32]
+Discuss WDL on [the WDL forum](http://forum.cockos.com/forumdisplay.php?f=32)
