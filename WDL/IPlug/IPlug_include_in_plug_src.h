@@ -62,11 +62,11 @@
   }
   extern "C"
   {
-    ComponentResult PLUG_ENTRY(ComponentParameters* params, void* pPlug)
+    __attribute__ ((visibility("default"))) ComponentResult PLUG_ENTRY(ComponentParameters* params, void* pPlug)
     {
       return IPlugAU::IPlugAUEntry(params, pPlug);
     }
-    ComponentResult PLUG_VIEW_ENTRY(ComponentParameters* params, void* pView)
+    __attribute__ ((visibility("default"))) ComponentResult PLUG_VIEW_ENTRY(ComponentParameters* params, void* pView)
     {
       return IPlugAU::IPlugAUCarbonViewEntry(params, pView);
     }
