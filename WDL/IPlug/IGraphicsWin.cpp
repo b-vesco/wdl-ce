@@ -450,6 +450,14 @@ void IGraphicsWin::CloseWindow()
 		DestroyWindow(mPlugWnd);
 		mPlugWnd = 0;
 
+		if (mParamEditWnd)
+		{
+			mParamEditWnd = 0;
+			mEdParam = 0;
+			mEdControl = 0;
+			mDefEditProc = 0;
+		}
+
 		if (--nWndClassReg == 0) {
 			UnregisterClass(wndClassName, mHInstance);
 		}
@@ -680,7 +688,7 @@ bool IGraphicsWin::OpenURL(const char* url,
 
 bool IGraphicsWin::DrawIText(IText* pText, char* str, IRECT* pR)
 {
-  if (!str || str == '\0') {
+  if (!str || str[0] == '\0') {
       return true;
   }
 
