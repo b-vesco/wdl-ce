@@ -31,6 +31,7 @@ WDL_VirtualIconButton::WDL_VirtualIconButton()
   m_alpha=1.0;
   m_checkstate=-1;
   m_textfont=0;
+  m_textfontv=0;
   m_textalign=0;
   m_bgcol1_msg=0;
   m_is_button=true;
@@ -40,6 +41,7 @@ WDL_VirtualIconButton::WDL_VirtualIconButton()
   m_grayed = false;
   m_forceborder=false;
   m_forcetext=false;
+  m_forcetext_color=0;
   m_ownsicon=false;
   m_immediate=false;
   m_margin_r = m_margin_l = 0;
@@ -99,7 +101,7 @@ void WDL_VirtualIconButton::OnPaintOver(LICE_IBitmap *drawbm, int origin_x, int 
     int sy=0;
     int w=m_iconCfg->olimage->getWidth();
     int h=m_iconCfg->olimage->getHeight();
-    if (m_iconCfg->image_ltrb_used)  { w-=2; h-= 2; sx++,sy++; }
+    if (m_iconCfg->image_ltrb_used.flags&1)  { w-=2; h-= 2; sx++,sy++; }
 
     w/=3;
 
@@ -141,6 +143,9 @@ void WDL_VirtualIconButton::OnPaint(LICE_IBitmap *drawbm, int origin_x, int orig
     int w=m_iconCfg->image->getWidth();
     int h=m_iconCfg->image->getHeight();
 
+    if (w>0 && (m_iconCfg->image_ltrb_used.flags&2))
+      w-=2;
+
     w/=3;
     if (w>0 && h > 0)
     {
@@ -150,11 +155,30 @@ void WDL_VirtualIconButton::OnPaint(LICE_IBitmap *drawbm, int origin_x, int orig
         else if (ishover) sx += w;
       }
 
-      LICE_ScaledBlit(drawbm,m_iconCfg->image,r.left+origin_x,r.top+origin_y,
-        r.right-r.left,
-        r.bottom-r.top,
-        (float)sx,(float)sy,(float)w,(float)h, alpha,
-        LICE_BLIT_MODE_COPY|LICE_BLIT_FILTER_BILINEAR|LICE_BLIT_USE_ALPHA);      
+
+      if (m_iconCfg->image_ltrb_used.flags&2)
+      {
+        WDL_VirtualWnd_BGCfg cfg={0,};
+        LICE_SubBitmap sb(m_iconCfg->image,sx+1,sy+1,w,h-2);
+        cfg.bgimage = &sb;
+        cfg.bgimage_lt[0] = m_iconCfg->image_ltrb_main[0];
+        cfg.bgimage_lt[1] = m_iconCfg->image_ltrb_main[1];
+        cfg.bgimage_rb[0] = m_iconCfg->image_ltrb_main[2];
+        cfg.bgimage_rb[1] = m_iconCfg->image_ltrb_main[3];
+        cfg.bgimage_noalphaflags=0;
+
+        WDL_VirtualWnd_ScaledBlitBG(drawbm,&cfg,
+          r.left+origin_x,r.top+origin_y,r.right-r.left,r.bottom-r.top,
+          r.left+origin_x,r.top+origin_y,r.right-r.left,r.bottom-r.top,
+          alpha,LICE_BLIT_MODE_COPY|LICE_BLIT_FILTER_BILINEAR|LICE_BLIT_USE_ALPHA);
+
+      }
+      else
+        LICE_ScaledBlit(drawbm,m_iconCfg->image,r.left+origin_x,r.top+origin_y,
+          r.right-r.left,
+          r.bottom-r.top,
+          (float)sx,(float)sy,(float)w,(float)h, alpha,
+          LICE_BLIT_MODE_COPY|LICE_BLIT_FILTER_BILINEAR|LICE_BLIT_USE_ALPHA);      
     }
   }
   else
@@ -241,14 +265,19 @@ void WDL_VirtualIconButton::OnPaint(LICE_IBitmap *drawbm, int origin_x, int orig
 
 
     }
-    // draw text
-    if (m_textfont&&m_textlbl.Get()[0])
+
+    LICE_IFont *font = m_textfont;
+    if (font && m_textfontv && m_position.right-m_position.left < m_position.bottom - m_position.top)
     {
-      int fgc=WDL_STYLE_GetSysColor(COLOR_BTNTEXT);
-      fgc=LICE_RGBA_FROMNATIVE(fgc,255);
-      //m_textfont->SetCombineMode(LICE_BLIT_MODE_COPY, alpha); // this affects the glyphs that get cached
-      m_textfont->SetBkMode(TRANSPARENT);
-      m_textfont->SetTextColor(fgc);
+      font = m_textfontv;
+    }
+    // draw text
+    if (font&&m_textlbl.Get()[0])
+    {
+      int fgc=m_forcetext_color ? m_forcetext_color : LICE_RGBA_FROMNATIVE(WDL_STYLE_GetSysColor(COLOR_BTNTEXT),255);
+      //font->SetCombineMode(LICE_BLIT_MODE_COPY, alpha); // this affects the glyphs that get cached
+      font->SetBkMode(TRANSPARENT);
+      font->SetTextColor(fgc);
 
       r2.left += m_margin_l;
       r2.right -= m_margin_r;
@@ -262,7 +291,7 @@ void WDL_VirtualIconButton::OnPaint(LICE_IBitmap *drawbm, int origin_x, int orig
         else r2.left+=2;
         r2.top+=2;
       }
-      m_textfont->DrawText(drawbm,m_textlbl.Get(),-1,&r2,DT_SINGLELINE|DT_VCENTER|(m_textalign<0?DT_LEFT:m_textalign>0?DT_RIGHT:DT_CENTER)|DT_NOPREFIX);
+      font->DrawText(drawbm,m_textlbl.Get(),-1,&r2,DT_SINGLELINE|DT_VCENTER|(m_textalign<0?DT_LEFT:m_textalign>0?DT_RIGHT:DT_CENTER)|DT_NOPREFIX);
     }
     
   }
@@ -310,10 +339,14 @@ void WDL_VirtualIconButton::OnMouseMove(int xpos, int ypos)
   if (m_en&&m_is_button)
   {
     int wp=m_pressed;
-    if (xpos >= 0 &&
-      xpos < m_position.right-m_position.left && 
-      ypos >= 0 &&
-      ypos < m_position.bottom-m_position.top)
+
+    WDL_VWnd *parhit = GetParent();
+    if (parhit)
+    {
+      parhit = parhit->VirtWndFromPoint(m_position.left+xpos,m_position.top+ypos,0);
+    }
+    
+    if (parhit == this)
     {
       m_pressed|=2;
     }
@@ -546,7 +579,7 @@ WDL_VirtualStaticText::WDL_VirtualStaticText()
   m_bkbm=0;
   m_margin_r=m_margin_l=0;
   m_margin_t=m_margin_b=0;
-  m_fg=m_bg=-1;
+  m_fg=m_bg=0;
   m_wantborder=false;
   m_vfont=m_font=0;
   m_align=-1;
@@ -565,6 +598,29 @@ void WDL_VirtualStaticText::SetText(const char *text)
   {
     m_text.Set(text); 
     if (m_font) RequestRedraw(NULL); 
+  }
+}
+
+void WDL_VirtualStaticText::GetPositionPaintExtent(RECT *r)
+{
+  // overridden in case m_bkbm has outer areas
+  *r = m_position;
+  if (m_bkbm && m_bkbm->bgimage)
+  {
+    if (m_bkbm->bgimage_lt[0]>0 &&
+        m_bkbm->bgimage_lt[1]>0 &&
+        m_bkbm->bgimage_rb[0]>0 &&
+        m_bkbm->bgimage_rb[1]>0 &&
+        m_bkbm->bgimage_lt_out[0]>0 &&
+        m_bkbm->bgimage_lt_out[1]>0 &&
+        m_bkbm->bgimage_rb_out[0]>0 &&
+        m_bkbm->bgimage_rb_out[1]>0)
+    {
+      r->left -= m_bkbm->bgimage_lt_out[0]-1;
+      r->top -= m_bkbm->bgimage_lt_out[1]-1;
+      r->right += m_bkbm->bgimage_rb_out[0]-1;
+      r->bottom += m_bkbm->bgimage_rb_out[1]-1;
+    }
   }
 }
 
@@ -596,26 +652,34 @@ void WDL_VirtualStaticText::OnPaint(LICE_IBitmap *drawbm, int origin_x, int orig
       r.left,r.top,r.right-r.left,r.bottom-r.top,
       1.0,LICE_BLIT_MODE_COPY|LICE_BLIT_FILTER_BILINEAR|LICE_BLIT_USE_ALPHA);
 
-    if (m_dotint && m_bg>=0) 
+    if (m_dotint && LICE_GETA(m_bg)) 
     {
-        float rv=GetRValue(m_bg)/255.0f;
-        float gv=GetGValue(m_bg)/255.0f;
-        float bv=GetBValue(m_bg)/255.0f;
+        float amt = LICE_GETA(m_bg)/255.0f;
+
+        // todo: apply amt
+
+        float rv=LICE_GETR(m_bg)/255.0f;
+        float gv=LICE_GETG(m_bg)/255.0f;
+        float bv=LICE_GETB(m_bg)/255.0f;
 
         float avg=(rv+gv+bv)*0.33333f;
         if (avg<0.05f)avg=0.05f;
 
-        float sc=0.5f;
-        float sc2 = (1.0f-sc)/avg;
+        float sc=0.5f*amt;
+        float sc2 = (amt-sc)/avg;
 
-        float sc3=32.0f;
-        float sc4=64.0f*(avg-0.5f);
+        float sc3=32.0f * amt;
+        float sc4=64.0f*(avg-0.5f) * amt;
+
         // tint
         LICE_MultiplyAddRect(drawbm,
           r.left,r.top,
             r.right-r.left,
             r.bottom-r.top,
-            sc+rv*sc2,sc+gv*sc2,sc+bv*sc2,1,
+            sc+rv*sc2 + (1.0-amt),
+            sc+gv*sc2 + (1.0-amt),
+            sc+bv*sc2 + (1.0-amt),
+            1,
             (rv-avg)*sc3+sc4,
             (gv-avg)*sc3+sc4,
             (bv-avg)*sc3+sc4,
@@ -624,9 +688,9 @@ void WDL_VirtualStaticText::OnPaint(LICE_IBitmap *drawbm, int origin_x, int orig
   }
   else 
   {
-    if (m_bg!=-1)
+    if (LICE_GETA(m_bg))
     {
-      LICE_FillRect(drawbm,r.left,r.top,r.right-r.left,r.bottom-r.top,LICE_RGBA_FROMNATIVE(m_bg,255),1.0f,LICE_BLIT_MODE_COPY);
+      LICE_FillRect(drawbm,r.left,r.top,r.right-r.left,r.bottom-r.top,m_bg,LICE_GETA(m_bg)/255.0f,LICE_BLIT_MODE_COPY);
     }
 
     if (m_wantborder)
@@ -678,9 +742,11 @@ void WDL_VirtualStaticText::OnPaint(LICE_IBitmap *drawbm, int origin_x, int orig
         if (r2.right > r.right-r.left) m_didalign=-1;
       }
 
-      int tcol=m_fg!=-1 ? m_fg : LICE_RGBA_FROMNATIVE(WDL_STYLE_GetSysColor(COLOR_BTNTEXT));
+      int tcol=m_fg ? m_fg : LICE_RGBA_FROMNATIVE(WDL_STYLE_GetSysColor(COLOR_BTNTEXT));
       font->SetTextColor(tcol);
+      if (m_fg && LICE_GETA(m_fg) != 0xff) font->SetCombineMode(LICE_BLIT_MODE_COPY,LICE_GETA(m_fg)/255.0f);
       font->DrawText(drawbm,m_text.Get(),-1,&r,DT_SINGLELINE|DT_VCENTER|(m_didalign<0?DT_LEFT:m_didalign>0?DT_RIGHT:DT_CENTER)|DT_NOPREFIX);
+      if (m_fg && LICE_GETA(m_fg) != 0xff) font->SetCombineMode(LICE_BLIT_MODE_COPY,1.0f);
     }
 
 
@@ -792,54 +858,59 @@ bool WDL_VirtualIconButton::WantsPaintOver()
 void WDL_VirtualIconButton::GetPositionPaintOverExtent(RECT *r)
 {
   *r=m_position;
-  if (m_iconCfg && m_iconCfg->image && m_iconCfg->olimage && m_iconCfg->image_ltrb_used)
+  if (m_iconCfg && m_iconCfg->image && m_iconCfg->olimage && (m_iconCfg->image_ltrb_used.flags&1))
   {
-    int w=(m_iconCfg->olimage->getWidth()-2)/3-m_iconCfg->image_ltrb[0]-m_iconCfg->image_ltrb[2];
+    int w=(m_iconCfg->olimage->getWidth()-2)/3-m_iconCfg->image_ltrb_ol[0]-m_iconCfg->image_ltrb_ol[2];
     if (w<1)w=1;
     double wsc=(r->right-r->left)/(double)w;
 
-    int h=m_iconCfg->olimage->getHeight()-2-m_iconCfg->image_ltrb[1]-m_iconCfg->image_ltrb[3];
+    int h=m_iconCfg->olimage->getHeight()-2-m_iconCfg->image_ltrb_ol[1]-m_iconCfg->image_ltrb_ol[3];
     if (h<1)h=1;
     double hsc=(r->bottom-r->top)/(double)h;
 
-    r->left-=(int) (m_iconCfg->image_ltrb[0]*wsc);
-    r->top-=(int) (m_iconCfg->image_ltrb[1]*hsc);
-    r->right+=(int) (m_iconCfg->image_ltrb[2]*wsc);
-    r->bottom+=(int) (m_iconCfg->image_ltrb[3]*hsc);
+    r->left-=(int) (m_iconCfg->image_ltrb_ol[0]*wsc);
+    r->top-=(int) (m_iconCfg->image_ltrb_ol[1]*hsc);
+    r->right+=(int) (m_iconCfg->image_ltrb_ol[2]*wsc);
+    r->bottom+=(int) (m_iconCfg->image_ltrb_ol[3]*hsc);
   }
 }
 void WDL_VirtualIconButton_PreprocessSkinConfig(WDL_VirtualIconButton_SkinConfig *a)
 {
-  if (a && a->image && a->olimage)
+  if (a && a->image)
   {
-    a->image_ltrb_used=false;
-    int lext=0,rext=0,bext=0,text=0;
-
-    int w=a->olimage->getWidth();
-    int h=a->olimage->getHeight();
-
-    if (LICE_GetPixel(a->olimage,0,0)==LICE_RGBA(255,0,255,255)&&
-        LICE_GetPixel(a->olimage,w-1,h-1)==LICE_RGBA(255,0,255,255))
+    a->image_ltrb_used.flags=0;
+    int wi;
+    for(wi=0;wi<2;wi++)
     {
-      int x;
-      for (x = 1; x < w/3 && LICE_GetPixel(a->olimage,x,0)==LICE_RGBA(255,0,255,255); x ++);
-      lext=x-1;
-      for (x = 1; x < h && LICE_GetPixel(a->olimage,0,x)==LICE_RGBA(255,0,255,255); x ++);
-      text=x-1;
+      LICE_IBitmap *srcimg = wi ? a->image : a->olimage;
+      if (!srcimg) continue;
+      int w=srcimg->getWidth();
+      int h=srcimg->getHeight();
 
-      for (x = w-2; x > (w*2/3) && LICE_GetPixel(a->olimage,x,h-1)==LICE_RGBA(255,0,255,255); x --);
-      rext=w-2-x;
-      for (x = h-2; x > text && LICE_GetPixel(a->olimage,w-1,x)==LICE_RGBA(255,0,255,255); x --);
-      bext=h-2-x;
-      if (lext||text||rext||bext)
+      if (LICE_GetPixel(srcimg,0,0)==LICE_RGBA(255,0,255,255)&&
+          LICE_GetPixel(srcimg,w-1,h-1)==LICE_RGBA(255,0,255,255))
       {
-        a->image_ltrb_used=true;
-        a->image_ltrb[0]=lext;
-        a->image_ltrb[1]=text;
-        a->image_ltrb[2]=rext;
-        a->image_ltrb[3]=bext;
+        int lext=0,rext=0,bext=0,text=0;
+        int x;
+        for (x = 1; x < w/3 && LICE_GetPixel(srcimg,x,0)==LICE_RGBA(255,0,255,255); x ++);
+        lext=x-1;
+        for (x = 1; x < h && LICE_GetPixel(srcimg,0,x)==LICE_RGBA(255,0,255,255); x ++);
+        text=x-1;
+
+        for (x = w-2; x >= (w*2/3) && LICE_GetPixel(srcimg,x,h-1)==LICE_RGBA(255,0,255,255); x --);
+        rext=w-2-x;
+        for (x = h-2; x >= text && LICE_GetPixel(srcimg,w-1,x)==LICE_RGBA(255,0,255,255); x --);
+        bext=h-2-x;
+        if (lext||text||rext||bext)
+        {
+          a->image_ltrb_used.flags |= 1 << wi;
+          short *buf = wi ? a->image_ltrb_main : a->image_ltrb_ol;
+          buf[0]=lext;
+          buf[1]=text;
+          buf[2]=rext;
+          buf[3]=bext;
+        }
       }
     }
-
   }
 }

@@ -7,7 +7,7 @@
 // Cocoa objects can be supplied by any existing component, 
 // so we need to make sure the C++ static lib code gets the 
 // IGraphicsCocoa that it expects.
-#define IGRAPHICS_COCOA IGraphicsCocoa_v1002_C599B068
+#define IGRAPHICS_COCOA IGraphicsCocoa_v1002_e375d5b9
 
 NSString* ToNSString(const char* cStr);
 
@@ -21,6 +21,10 @@ inline CGRect ToCGRect(int h, IRECT* pR)
 {
   IGraphicsMac* mGraphics;
   NSTimer* mTimer;
+  NSTextField* mParamEditView;
+  // Ed = being edited manually.
+  IControl* mEdControl;
+  IParam* mEdParam;
 }
 - (id) init;
 - (id) initWithIGraphics: (IGraphicsMac*) pGraphics;
@@ -40,4 +44,6 @@ inline CGRect ToCGRect(int h, IRECT* pR)
 - (void) mouseMoved: (NSEvent*) pEvent;
 - (void) scrollWheel: (NSEvent*) pEvent;
 - (void) killTimer;
+- (void) controlTextDidChange: (NSNotification *) aNotification;
+- (void) promptUserInput: (IControl*) pControl param: (IParam*) pParam;
 @end
