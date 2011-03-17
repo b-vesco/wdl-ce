@@ -12,7 +12,7 @@ class IGraphicsMac : public IGraphicsLice
 {
 public:
 
-	IGraphicsMac(IPlugBase* pPlug, int w, int h, int refreshFPS = FPS);
+	IGraphicsMac(IPlugBase* pPlug, int w, int h, int refreshFPS);
 	virtual ~IGraphicsMac();
 
   void SetBundleID(const char* bundleID) { mBundleID.Set(bundleID); }
