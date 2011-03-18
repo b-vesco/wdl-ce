@@ -11,7 +11,7 @@ class IGraphicsWin : public IGraphicsLice
 {
 public:
 
-	IGraphicsWin(IPlugBase* pPlug, int w, int h, int refreshFPS = 0);
+	IGraphicsWin(IPlugBase* pPlug, int w, int h, int refreshFPS);
 	virtual ~IGraphicsWin();
 
   void SetHInstance(HINSTANCE hInstance) { mHInstance = hInstance; }
