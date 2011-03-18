@@ -372,9 +372,8 @@ SWELL_API_DEFINE(HANDLE, RemoveProp, (HWND, const char *))
 ** otherwise returns TRUE if non-null hwnd
 */
 SWELL_API_DEFINE(bool, IsWindowVisible,(HWND hwnd))
-#ifndef IsWindow
-#define IsWindow(x) (!!(x)) // todo use isKindOf
-#endif
+
+SWELL_API_DEFINE(bool, IsWindow, (HWND hwnd)) // very costly (compared to win32) -- enumerates all windows, searches for hwnd
 
 
 /*
@@ -766,6 +765,11 @@ SWELL_API_DEFINE(void, SWELL_SetCursor,(HCURSOR curs))
 #endif
 #define ScrollWindowEx(a,b,c,d,e,f,g,h) ScrollWindow(a,b,c,d,e)
 
+
+/*
+** Globally enable or disable emulating mouse right-click using control+left-click
+*/
+SWELL_API_DEFINE(void, SWELL_EnableRightClickEmulate, (BOOL enable))
 
 
 /*

@@ -933,14 +933,17 @@ static int DelegateMouseMove(NSView *view, NSEvent *theEvent)
   int ndlist_oldsz=ndlist.GetSize();
   swellRenderOptimizely(twoPassMode?1:3,self,hdc,false,&ndlist,rlist,rlistcnt,0,0,true);
     
-  while (ndlist.GetSize()>ndlist_oldsz)
+  while (ndlist.GetSize()>ndlist_oldsz+1)
   {
     NSView *v = (NSView *)ndlist.Get(ndlist.GetSize()-1);
+    ndlist.Delete(ndlist.GetSize()-1);
+
+    int flag = (int)(INT_PTR) ndlist.Get(ndlist.GetSize()-1);
     ndlist.Delete(ndlist.GetSize()-1);
     
     NSRect b = [v bounds];
     
-    if (rlistcnt)
+    if (rlistcnt && !(flag&1))
     {
       int x;
       for(x=0;x<rlistcnt;x++)
@@ -1031,7 +1034,7 @@ static int DelegateMouseMove(NSView *view, NSEvent *theEvent)
   if (!m_enabled) return;  
   
   m_isfakerightmouse=0;
-  if ([theEvent modifierFlags] & NSControlKeyMask)
+  if (([theEvent modifierFlags] & NSControlKeyMask) && IsRightClickEmulateEnabled())
   {
     [self rightMouseDown:theEvent];
     if ([theEvent clickCount]<2) m_isfakerightmouse=1;
@@ -2722,6 +2725,17 @@ void swellRenderOptimizely(int passflags, SWELL_hwndChild *view, HDC hdc, BOOL d
           }
           else if (passflags&1)
           {
+            if ([v isKindOfClass:[NSScrollView class]])
+            {
+              NSView *sv = [(NSScrollView *)v contentView];
+              if (sv)
+              {
+                [v retain];
+                needdraws->Add((void*)(INT_PTR)(doforce?1:0));
+                needdraws->Add(v);
+                v=sv;
+              }
+            }
             [v retain];
             if (!doforce && ![v isOpaque]) 
             {
@@ -2759,6 +2773,7 @@ void swellRenderOptimizely(int passflags, SWELL_hwndChild *view, HDC hdc, BOOL d
                 }
               }
             }
+            needdraws->Add((void*)(INT_PTR)(doforce?1:0));
             needdraws->Add(v);     
           }
         }

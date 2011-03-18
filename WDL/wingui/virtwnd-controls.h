@@ -111,7 +111,10 @@ class WDL_VirtualIconButton : public WDL_VWnd
     WDL_VirtualIconButton_SkinConfig* GetIcon() { return m_iconCfg; } // note button does not own m_iconCfg
     bool ButtonOwnsIcon() { return m_ownsicon; }
 
-    void SetForceText(bool ft) { m_forcetext=ft; }
+    void SetForceText(bool ft, int color=0) { m_forcetext=ft; m_forcetext_color=color; }
+    bool GetForceText() { return m_forcetext; }
+
+    void SetFont(LICE_IFont *font, LICE_IFont *vfont=NULL) { m_textfont=font; m_textfontv=vfont; }
 
   private:
 
@@ -129,9 +132,10 @@ class WDL_VirtualIconButton : public WDL_VWnd
     char m_textalign;
     char m_checkstate;
     bool m_forcetext;
+    int m_forcetext_color;
 
     WDL_String m_textlbl;
-    LICE_IFont *m_textfont;
+    LICE_IFont *m_textfont,*m_textfontv;
 };
 
 
@@ -148,6 +152,8 @@ class WDL_VirtualStaticText : public WDL_VWnd
     virtual bool OnMouseDblClick(int xpos, int ypos);
     virtual int OnMouseDown(int xpos, int ypos);
 
+    virtual void GetPositionPaintExtent(RECT *r); // override in case m_bkbm has outer areas
+
     void SetWantSingleClick(bool ws) {m_wantsingle=ws; }
     void SetFont(LICE_IFont *font, LICE_IFont *vfont=NULL) { m_font=font; m_vfont=vfont; }
     LICE_IFont *GetFont(bool vfont=false) { return vfont?m_vfont:m_font; }
@@ -155,7 +161,7 @@ class WDL_VirtualStaticText : public WDL_VWnd
     void SetText(const char *text);
     void SetBorder(bool bor) { m_wantborder=bor; }
     const char *GetText() { return m_text.Get(); }
-    void SetColor(int fg=-1, int bg=-1, bool tint=false) { m_fg=fg; m_bg=bg; m_dotint=tint; }
+    void SetColors(int fg=0, int bg=0, bool tint=false) { m_fg=fg; m_bg=bg; m_dotint=tint; }
     void SetMargins(int l, int r) { m_margin_l=l; m_margin_r=r; }
     void SetVMargins(int t, int b) { m_margin_t=t; m_margin_b=b; };
     void SetBkImage(WDL_VirtualWnd_BGCfg *bm) { m_bkbm=bm; }

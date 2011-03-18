@@ -45,6 +45,13 @@ public:
     return notfound;
   }
 
+  bool Exists(KEY key)
+  {
+    bool ismatch = false;
+    LowerBound(key, &ismatch);
+    return ismatch;
+  }
+
   void Insert(KEY key, VAL val, KEY *keyPtrOut=NULL) 
   {
     bool ismatch = false;
@@ -93,7 +100,7 @@ public:
     }
   }
 
-  void DeleteAll()
+  void DeleteAll(bool resizedown=false)
   {
     if (m_keydispose || m_valdispose)
     {
@@ -105,7 +112,7 @@ public:
         if (m_valdispose) m_valdispose(kv->val);
       }
     }
-    m_data.Resize(0);
+    m_data.Resize(0, resizedown);
   }
 
   int GetSize()
@@ -190,6 +197,14 @@ public:
     }
     *ismatch = false;
     return a;
+  }
+
+  int GetIdx(KEY key)
+  {
+    bool ismatch=false;
+    int i = LowerBound(key, &ismatch);
+    if (ismatch) return i;
+    return -1;
   }
 
 private:

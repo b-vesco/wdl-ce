@@ -351,7 +351,7 @@ STANDARD_CONTROL_NEEDSDISPLAY_IMPL
 
 -(void)mouseDown:(NSEvent *)theEvent
 {
-  if (([theEvent modifierFlags] & NSControlKeyMask))
+  if (([theEvent modifierFlags] & NSControlKeyMask) && IsRightClickEmulateEnabled())
   {
     m_fakerightmouse=1;  
   }
@@ -502,7 +502,7 @@ STANDARD_CONTROL_NEEDSDISPLAY_IMPL
 
 -(void)mouseDown:(NSEvent *)theEvent
 {
-  if (([theEvent modifierFlags] & NSControlKeyMask))
+  if (([theEvent modifierFlags] & NSControlKeyMask) && IsRightClickEmulateEnabled())
   {
     m_fakerightmouse=1;  
     m_start_item=-1;
@@ -522,14 +522,7 @@ STANDARD_CONTROL_NEEDSDISPLAY_IMPL
       m_start_item_clickmode=1;
     }
     
-    if (!m_lbMode)
-    {
-      NMLISTVIEW nmlv={{(HWND)self,[self tag], NM_CLICK}, [self rowAtPoint:pt], [self columnAtPoint:pt], 0, 0, 0, {pt.x, pt.y}, };
-      SWELL_ListView_Row *row=m_items->Get(nmlv.iItem);
-      if (row)
-        nmlv.lParam = row->m_param;
-      SendMessage((HWND)[self target],WM_NOTIFY,[self tag],(LPARAM)&nmlv);
-    }
+    // send NM_CLICK on mouseup
   }
 }
 
@@ -579,13 +572,23 @@ STANDARD_CONTROL_NEEDSDISPLAY_IMPL
       HWND tgt=(HWND)[self target];
       POINT p;
       GetCursorPos(&p);
-      ScreenToClient(tgt,&p);
-      
-      SendMessage(tgt,WM_LBUTTONUP,0,(p.x&0xffff) + (((int)p.y)<<16));
-      
+      ScreenToClient(tgt,&p);      
+      SendMessage(tgt,WM_LBUTTONUP,0,(p.x&0xffff) + (((int)p.y)<<16));      
     }
   }
+  
+  if (!m_lbMode)
+  {
+    NSPoint pt=[theEvent locationInWindow];
+    pt=[self convertPoint:pt fromView:nil];    
+    NMLISTVIEW nmlv={{(HWND)self,[self tag], NM_CLICK}, [self rowAtPoint:pt], [self columnAtPoint:pt], 0, 0, 0, {pt.x, pt.y}, };
+    SWELL_ListView_Row *row=m_items->Get(nmlv.iItem);
+    if (row)
+      nmlv.lParam = row->m_param;
+    SendMessage((HWND)[self target],WM_NOTIFY,[self tag],(LPARAM)&nmlv);
+  }  
 }
+
 - (void)rightMouseUp:(NSEvent *)theEvent
 {
   bool wantContext=true;
@@ -1049,6 +1052,34 @@ LONG_PTR GetWindowLong(HWND hwnd, int idx)
   return 0;
 }
 
+static bool IsWindowImpl(NSView *ch, NSView *par)
+{
+  if (!par) return false;
+  NSArray *ar = [par subviews];
+  if (!ar) return false;
+  int x,n=[ar count];
+  for (x=0;x<n;x++)
+    if ([ar objectAtIndex:x] == ch) return true;
+  for (x=0;x<n;x++)
+    if (IsWindowImpl(ch,[ar objectAtIndex:x])) return true;
+  return false;
+}
+bool IsWindow(HWND hwnd)
+{
+  if (!hwnd) return false;
+  // this is very costly, but required
+  NSArray *ch=[NSApp windows];
+  int x,n=[ch count];
+  for(x=0;x<n; x ++)
+  {
+    NSWindow *w = [ch objectAtIndex:x]; 
+    if (w == (NSWindow *)hwnd || [w contentView] == (NSView *)hwnd) return true;
+  }
+  for(x=0;x<n; x ++)
+    if (IsWindowImpl((NSView*)hwnd,[[ch objectAtIndex:x] contentView])) return true;
+  return false;
+}
+
 bool IsWindowVisible(HWND hwnd)
 {
   if (!hwnd) return false;
@@ -1262,7 +1293,20 @@ void EnableWindow(HWND hwnd, int enable)
   id bla=(id)hwnd;
   if ([bla isKindOfClass:[NSWindow class]]) bla = [bla contentView];
     
-  if (bla && [bla respondsToSelector:@selector(setEnabled:)]) [bla setEnabled:(enable?YES:NO)];
+  if (bla && [bla respondsToSelector:@selector(setEnabled:)])
+  {
+    [bla setEnabled:(enable?YES:NO)];
+    if ([bla isKindOfClass:[SWELL_TextField class]])
+    {
+      NSTextField* txt = (NSTextField*)bla;
+      if (![txt isEditable] && ![txt isBordered] && ![txt drawsBackground]) // looks like a static text control
+      {
+        NSColor* col = [txt textColor];
+        float alpha = (enable ? 1.0f : 0.5f);
+        [txt setTextColor:[col colorWithAlphaComponent:alpha]];
+      }
+    }    
+  }
 }
 
 void SetForegroundWindow(HWND hwnd)
@@ -2303,16 +2347,18 @@ void ShowWindow(HWND hwnd, int cmd)
         }
         if (![((NSView *)pid) isHidden])
         {
-          HWND par = GetParent((HWND)pid);
-          if (par)
+          if ((NSView *)pid != [pw contentView])
           {
-            RECT r;
-            GetWindowRect((HWND)pid,&r);
-            ScreenToClient(par,(LPPOINT)&r);
-            ScreenToClient(par,((LPPOINT)&r)+1);
-            InvalidateRect(par,&r,FALSE);
+            HWND par = (HWND) [(NSView *)pid superview];
+            if (par)
+            {
+              RECT r;
+              GetWindowRect((HWND)pid,&r);
+              ScreenToClient(par,(LPPOINT)&r);
+              ScreenToClient(par,((LPPOINT)&r)+1);
+              InvalidateRect(par,&r,FALSE);
+            }
           }
-
           [((NSView *)pid) setHidden:YES];
         }
     }
@@ -4048,7 +4094,12 @@ void InvalidateRect(HWND hwnd, RECT *r, int eraseBk)
     }
     if (r)
     {
-      [sv setNeedsDisplayInRect:NSMakeRect(r->left,r->top,r->right-r->left,r->bottom-r->top)]; 
+      RECT tr=*r;
+      if (tr.top>tr.bottom)
+      {
+        int a = tr.top; tr.top=tr.bottom; tr.bottom=a;
+      }
+      [sv setNeedsDisplayInRect:NSMakeRect(tr.left,tr.top,tr.right-tr.left,tr.bottom-tr.top)]; 
     }
     else [sv setNeedsDisplay:YES];
     
@@ -5048,6 +5099,25 @@ bool SWELL_HandleMouseEvent(NSEvent *evt)
   return false;
 }
 
+int SWELL_GetWindowWantRaiseAmt(HWND h)
+{
+  SWELL_ModelessWindow* mw=0;
+  if ([(id)h isKindOfClass:[SWELL_ModelessWindow class]])
+  {
+    mw=(SWELL_ModelessWindow*)h;
+  }
+  else if ([(id)h isKindOfClass:[NSView class]])
+  {
+    NSWindow* wnd=[(NSView*)h window];
+    if (wnd && [wnd isKindOfClass:[SWELL_ModelessWindow class]])
+    {
+      mw=(SWELL_ModelessWindow*)wnd;
+    }
+  }
+  if (mw) return mw->m_wantraiseamt;  
+  return 0; 
+}
+
 void SWELL_SetWindowWantRaiseAmt(HWND h, int  amt)
 {
   SWELL_ModelessWindow *mw=NULL;
@@ -5085,6 +5155,19 @@ void SetOpaque(HWND h, bool opaque)
   if (!h || ![(id)h isKindOfClass:[SWELL_hwndChild class]]) return;
   SWELL_hwndChild* v = (SWELL_hwndChild*)h;
   [v setOpaque:opaque];
+}
+
+void SetTransparent(HWND h)
+{
+  if (!h) return;
+  NSWindow* wnd=0;
+  if ([(id)h isKindOfClass:[NSWindow class]]) wnd=(NSWindow*)h;
+  else if ([(id)h isKindOfClass:[NSView class]]) wnd=[(NSView*)h window];
+  if (wnd) 
+  {
+    [wnd setBackgroundColor:[NSColor clearColor]];
+    [wnd setOpaque:NO];
+  }  
 }
 
 int SWELL_GetDefaultButtonID(HWND hwndDlg, bool onlyIfEnabled)
