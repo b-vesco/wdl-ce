@@ -4,10 +4,9 @@
 #import <AudioUnit/AUCocoaUIView.h>
 #include "IGraphicsMac.h"
 
-// Cocoa objects can be supplied by any existing component, 
-// so we need to make sure the C++ static lib code gets the 
-// IGraphicsCocoa that it expects.
-#define IGRAPHICS_COCOA IGraphicsCocoa_v1002_e375d5b9
+#ifndef IGRAPHICS_COCOA
+#define IGRAPHICS_COCOA IGraphicsCocoa_vWDLCE
+#endif
 
 NSString* ToNSString(const char* cStr);
 
