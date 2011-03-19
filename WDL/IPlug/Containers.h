@@ -19,8 +19,9 @@
 #include "../wdlstring.h"
 #include "../ptrlist.h"
 
-#define FREE_NULL(p) {free(p);p=0;}
-#define DELETE_NULL(p) {delete(p); p=0;}
+#define FREE_NULL(p) {free(p); (p)=0;}
+#define DELETE_NULL(p) {delete(p); (p)=0;}
+#define DELETE_ARRAY(p) {delete[](p); (p)=0;}
 #define MIN(x,y) ((x)<(y)?(x):(y))
 #define MAX(x,y) ((x)<(y)?(y):(x))
 #define BOUNDED(x,lo,hi) ((x) < (lo) ? (lo) : (x) > (hi) ? (hi) : (x))
