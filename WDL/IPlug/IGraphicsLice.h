@@ -16,7 +16,7 @@ class IGraphicsLice : public IGraphics
 {
 public:
 
-	IGraphicsLice(IPlugBase* pPlug, int w, int h, int refreshFPS = 0);
+	IGraphicsLice(IPlugBase* pPlug, int w, int h, int refreshFPS);
 	~IGraphicsLice();
 
   void PrepDraw();

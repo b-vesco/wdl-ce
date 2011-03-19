@@ -67,7 +67,7 @@ public:
 
 	////////////////////////////////////////
 
-	IGraphics(IPlugBase* pPlug, int w, int h, int refreshFPS = 0);
+	IGraphics(IPlugBase* pPlug, int w, int h, int refreshFPS);
 	virtual ~IGraphics();
   
   int Width() { return mWidth; }
