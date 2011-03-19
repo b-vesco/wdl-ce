@@ -16,8 +16,6 @@
 		523F19160D19AD8100ACA98D /* toggle-switch.png in Resources */ = {isa = PBXBuildFile; fileRef = 52E844110D0E55A200961B48 /* toggle-switch.png */; };
 		523F19170D19AD8500ACA98D /* VU-meter_sm.png in Resources */ = {isa = PBXBuildFile; fileRef = 52E844120D0E55A200961B48 /* VU-meter_sm.png */; };
 		525FE3870D15C0E900E4C9FB /* IPlugAU.r in Rez */ = {isa = PBXBuildFile; fileRef = 525FE3860D15C0E900E4C9FB /* IPlugAU.r */; };
-		526F9C020D7DC7D700562CF8 /* IPlugExample.exp in Sources */ = {isa = PBXBuildFile; fileRef = 526F9C010D7DC7D700562CF8 /* IPlugExample.exp */; };
-		526F9C030D7DC7D700562CF8 /* IPlugExample.exp in Sources */ = {isa = PBXBuildFile; fileRef = 526F9C010D7DC7D700562CF8 /* IPlugExample.exp */; };
 		52780D5E0D20A3FC00C2BCA7 /* IPlugAU_ViewFactory.mm in Sources */ = {isa = PBXBuildFile; fileRef = 52780D5D0D20A3FC00C2BCA7 /* IPlugAU_ViewFactory.mm */; };
 		52C4DB190D0E51270007A920 /* Carbon.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 52C4DB180D0E51270007A920 /* Carbon.framework */; };
 		52E41BB70D14C11C00A0943B /* IPlugExample.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 52FBBED00D0CF139001C8B8A /* IPlugExample.cpp */; };
@@ -41,14 +39,14 @@
 			isa = PBXContainerItemProxy;
 			containerPortal = 52DC4B560D29B54E00DD0B91 /* IPlug.xcodeproj */;
 			proxyType = 1;
-			remoteGlobalIDString = D2AAC07D0554694100DB518D /* IPlug */;
+			remoteGlobalIDString = D2AAC07D0554694100DB518D;
 			remoteInfo = IPlug;
 		};
 		339B7B731221FE8200EB24D1 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 52DC4B560D29B54E00DD0B91 /* IPlug.xcodeproj */;
 			proxyType = 1;
-			remoteGlobalIDString = D2AAC07D0554694100DB518D /* IPlug */;
+			remoteGlobalIDString = D2AAC07D0554694100DB518D;
 			remoteInfo = IPlug;
 		};
 		45BFA2571060DDDB00307BE8 /* PBXContainerItemProxy */ = {
@@ -147,14 +145,6 @@
 		089C166AFE841209C02AAC07 /* IPlugExample */ = {
 			isa = PBXGroup;
 			children = (
-				526F9C010D7DC7D700562CF8 /* IPlugExample.exp */,
-				52780D5D0D20A3FC00C2BCA7 /* IPlugAU_ViewFactory.mm */,
-				525FE3860D15C0E900E4C9FB /* IPlugAU.r */,
-				5276FBE40D15893B006A299A /* IPlug_include_in_plug_src.h */,
-				5276FBE30D158937006A299A /* IPlug_include_in_plug_hdr.h */,
-				52FBBED30D0CF143001C8B8A /* resource.h */,
-				52FBBED20D0CF13D001C8B8A /* IPlugExample.h */,
-				52FBBED00D0CF139001C8B8A /* IPlugExample.cpp */,
 				08FB77AFFE84173DC02AAC07 /* Classes */,
 				32C88E010371C26100C91783 /* Other Sources */,
 				089C167CFE841241C02AAC07 /* Resources */,
@@ -186,6 +176,9 @@
 		08FB77AFFE84173DC02AAC07 /* Classes */ = {
 			isa = PBXGroup;
 			children = (
+				52FBBED30D0CF143001C8B8A /* resource.h */,
+				52FBBED20D0CF13D001C8B8A /* IPlugExample.h */,
+				52FBBED00D0CF139001C8B8A /* IPlugExample.cpp */,
 			);
 			name = Classes;
 			sourceTree = "<group>";
@@ -230,6 +223,11 @@
 		32C88E010371C26100C91783 /* Other Sources */ = {
 			isa = PBXGroup;
 			children = (
+				526F9C010D7DC7D700562CF8 /* IPlugExample.exp */,
+				52780D5D0D20A3FC00C2BCA7 /* IPlugAU_ViewFactory.mm */,
+				525FE3860D15C0E900E4C9FB /* IPlugAU.r */,
+				5276FBE40D15893B006A299A /* IPlug_include_in_plug_src.h */,
+				5276FBE30D158937006A299A /* IPlug_include_in_plug_hdr.h */,
 				32DBCF630370AF2F00C91783 /* IPlugExample_Prefix.pch */,
 			);
 			name = "Other Sources";
@@ -291,9 +289,9 @@
 			productReference = 52E41BB20D14C0F500A0943B /* IPlugExample.component */;
 			productType = "com.apple.product-type.bundle";
 		};
-		8D5B49AC048680CD000E48DA /* IPlugExample */ = {
+		8D5B49AC048680CD000E48DA /* IPlugExampleVST */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 1DEB913A08733D840010E9CD /* Build configuration list for PBXNativeTarget "IPlugExample" */;
+			buildConfigurationList = 1DEB913A08733D840010E9CD /* Build configuration list for PBXNativeTarget "IPlugExampleVST" */;
 			buildPhases = (
 				8D5B49AF048680CD000E48DA /* Resources */,
 				8D5B49B1048680CD000E48DA /* Sources */,
@@ -304,7 +302,7 @@
 			dependencies = (
 				339B7B721221FE7100EB24D1 /* PBXTargetDependency */,
 			);
-			name = IPlugExample;
+			name = IPlugExampleVST;
 			productInstallPath = "$(HOME)/Library/Bundles";
 			productName = IPlugExample;
 			productReference = 8D5B49B6048680CD000E48DA /* IPlugExample.vst */;
@@ -317,7 +315,14 @@
 			isa = PBXProject;
 			buildConfigurationList = 1DEB913E08733D840010E9CD /* Build configuration list for PBXProject "IPlugExample" */;
 			compatibilityVersion = "Xcode 3.0";
+			developmentRegion = English;
 			hasScannedForEncodings = 1;
+			knownRegions = (
+				English,
+				Japanese,
+				French,
+				German,
+			);
 			mainGroup = 089C166AFE841209C02AAC07 /* IPlugExample */;
 			projectDirPath = "";
 			projectReferences = (
@@ -328,7 +333,7 @@
 			);
 			projectRoot = "";
 			targets = (
-				8D5B49AC048680CD000E48DA /* IPlugExample */,
+				8D5B49AC048680CD000E48DA /* IPlugExampleVST */,
 				52E41BB10D14C0F500A0943B /* IPlugExampleAU */,
 			);
 		};
@@ -389,7 +394,6 @@
 			files = (
 				52E41BB70D14C11C00A0943B /* IPlugExample.cpp in Sources */,
 				52780D5E0D20A3FC00C2BCA7 /* IPlugAU_ViewFactory.mm in Sources */,
-				526F9C020D7DC7D700562CF8 /* IPlugExample.exp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -398,7 +402,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				52FBBED10D0CF139001C8B8A /* IPlugExample.cpp in Sources */,
-				526F9C030D7DC7D700562CF8 /* IPlugExample.exp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -422,6 +425,8 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				COPY_PHASE_STRIP = NO;
+				DEPLOYMENT_LOCATION = YES;
+				DSTROOT = "/Library/Audio/Plug-Ins/VST";
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_ENABLE_FIX_AND_CONTINUE = YES;
 				GCC_MODEL_TUNING = G5;
@@ -430,12 +435,13 @@
 				GCC_PREFIX_HEADER = IPlugExample_Prefix.pch;
 				GCC_PREPROCESSOR_DEFINITIONS = VST_API;
 				GENERATE_PKGINFO_FILE = YES;
+				HEADER_SEARCH_PATHS = ../;
 				INFOPLIST_EXPAND_BUILD_SETTINGS = YES;
 				INFOPLIST_FILE = Info.plist;
-				INSTALL_PATH = "$(HOME)/Library/Bundles";
+				INSTALL_PATH = /;
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
-					"\"$(SRCROOT)/../IPlug/build/Debug\"",
+					"\"$(SRCROOT)/../build/Debug\"",
 				);
 				PRODUCT_NAME = IPlugExample;
 				WRAPPER_EXTENSION = vst;
@@ -447,17 +453,20 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				DSTROOT = "/Library/Audio/Plug-Ins/VST";
+				GCC_GENERATE_DEBUGGING_SYMBOLS = NO;
 				GCC_MODEL_TUNING = G5;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = IPlugExample_Prefix.pch;
 				GCC_PREPROCESSOR_DEFINITIONS = VST_API;
 				GENERATE_PKGINFO_FILE = YES;
+				HEADER_SEARCH_PATHS = ../;
 				INFOPLIST_EXPAND_BUILD_SETTINGS = YES;
 				INFOPLIST_FILE = Info.plist;
-				INSTALL_PATH = "$(HOME)/Library/Bundles";
+				INSTALL_PATH = /;
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
-					"\"$(SRCROOT)/../IPlug/build/Debug\"",
+					"\"$(SRCROOT)/../build/Release\"",
 				);
 				PRODUCT_NAME = IPlugExample;
 				WRAPPER_EXTENSION = vst;
@@ -491,7 +500,12 @@
 					ppc,
 					i386,
 				);
+				DEPLOYMENT_LOCATION = YES;
+				DEPLOYMENT_POSTPROCESSING = YES;
+				DSTROOT = "/Library/Audio/Plug-Ins/Components";
 				EXECUTABLE_EXTENSION = "";
+				GCC_GENERATE_DEBUGGING_SYMBOLS = NO;
+				GCC_SYMBOLS_PRIVATE_EXTERN = YES;
 				GCC_VERSION = 4.0;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
@@ -502,6 +516,7 @@
 				);
 				INFOPLIST_EXPAND_BUILD_SETTINGS = YES;
 				INFOPLIST_PREPROCESS = YES;
+				INSTALL_PATH = /;
 				PREBINDING = NO;
 				SDKROOT = "$(DEVELOPER_SDK_DIR)/MacOSX10.4u.sdk";
 				WRAPPER_EXTENSION = "";
@@ -536,17 +551,21 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				DEPLOYMENT_LOCATION = YES;
+				DEPLOYMENT_POSTPROCESSING = YES;
+				DSTROOT = "/Library/Audio/Plug-Ins/VST";
 				GCC_MODEL_TUNING = G5;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = IPlugExample_Prefix.pch;
 				GCC_PREPROCESSOR_DEFINITIONS = VST_API;
 				GENERATE_PKGINFO_FILE = YES;
+				HEADER_SEARCH_PATHS = ../;
 				INFOPLIST_EXPAND_BUILD_SETTINGS = YES;
 				INFOPLIST_FILE = Info.plist;
-				INSTALL_PATH = "$(HOME)/Library/Bundles";
+				INSTALL_PATH = /;
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
-					"\"$(SRCROOT)/../IPlug/build/Debug\"",
+					"\"$(SRCROOT)/../build/Debug\"",
 				);
 				PRODUCT_NAME = IPlugExample;
 				WRAPPER_EXTENSION = vst;
@@ -556,8 +575,10 @@
 		528359AB0D7F0C3A00577159 /* Tracer */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				COPY_PHASE_STRIP = YES;
+				COPY_PHASE_STRIP = NO;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				DEPLOYMENT_LOCATION = YES;
+				DSTROOT = "/Library/Audio/Plug-Ins/Components/";
 				EXPORTED_SYMBOLS_FILE = IPlugExample.exp;
 				GCC_ENABLE_FIX_AND_CONTINUE = NO;
 				GCC_MODEL_TUNING = G4;
@@ -568,14 +589,12 @@
 					AU_API,
 				);
 				GENERATE_PKGINFO_FILE = YES;
+				HEADER_SEARCH_PATHS = ../;
 				INFOPLIST_EXPAND_BUILD_SETTINGS = YES;
 				INFOPLIST_FILE = "IPlugExampleAU-Info.plist";
 				INFOPLIST_PREPROCESS = YES;
-				INSTALL_PATH = "$(HOME)/Library/Audio/Plug-Ins/Components/";
-				LIBRARY_SEARCH_PATHS = (
-					../IPlug/Build/Tracer,
-					"\"$(SRCROOT)/../Crypto/build/Release\"",
-				);
+				INSTALL_PATH = /;
+				LIBRARY_SEARCH_PATHS = "\"$(SRCROOT)/../build/Tracer\"";
 				LIBRARY_STYLE = Bundle;
 				OTHER_LDFLAGS = "-bundle";
 				OTHER_REZFLAGS = "-d ppc_$ppc -d i386_$i386 -I /System/Library/Frameworks/CoreServices.framework/Frameworks/CarbonCore.framework/Versions/A/Headers -I /Developer/Examples/CoreAudio/AudioUnits/AUPublic/AUBase";
@@ -596,6 +615,8 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				COPY_PHASE_STRIP = NO;
+				DEPLOYMENT_LOCATION = YES;
+				DSTROOT = "/Library/Audio/Plug-Ins/Components/";
 				EXPORTED_SYMBOLS_FILE = IPlugExample.exp;
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_ENABLE_FIX_AND_CONTINUE = YES;
@@ -605,14 +626,12 @@
 				GCC_PREFIX_HEADER = "";
 				GCC_PREPROCESSOR_DEFINITIONS = AU_API;
 				GENERATE_PKGINFO_FILE = YES;
+				HEADER_SEARCH_PATHS = ../;
 				INFOPLIST_EXPAND_BUILD_SETTINGS = YES;
 				INFOPLIST_FILE = "IPlugExampleAU-Info.plist";
 				INFOPLIST_PREPROCESS = YES;
-				INSTALL_PATH = "$(HOME)/Library/Audio/Plug-Ins/Components/";
-				LIBRARY_SEARCH_PATHS = (
-					"\"$(SRCROOT)/../IPlug/build/Debug\"",
-					"\"$(SRCROOT)/../Crypto/build/Release\"",
-				);
+				INSTALL_PATH = /;
+				LIBRARY_SEARCH_PATHS = "\"$(SRCROOT)/../build/Debug\"";
 				LIBRARY_STYLE = Bundle;
 				OTHER_LDFLAGS = "-bundle";
 				OTHER_REZFLAGS = "-d ppc_$ppc -d i386_$i386 -I /System/Library/Frameworks/CoreServices.framework/Frameworks/CarbonCore.framework/Versions/A/Headers -I /Developer/Examples/CoreAudio/AudioUnits/AUPublic/AUBase";
@@ -634,21 +653,24 @@
 			buildSettings = {
 				COPY_PHASE_STRIP = YES;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				DEPLOYMENT_LOCATION = YES;
+				DEPLOYMENT_POSTPROCESSING = YES;
+				DSTROOT = "/Library/Audio/Plug-Ins/Components/";
 				EXPORTED_SYMBOLS_FILE = IPlugExample.exp;
 				GCC_ENABLE_FIX_AND_CONTINUE = NO;
+				GCC_GENERATE_DEBUGGING_SYMBOLS = NO;
 				GCC_MODEL_TUNING = G4;
 				GCC_PRECOMPILE_PREFIX_HEADER = NO;
 				GCC_PREFIX_HEADER = "";
 				GCC_PREPROCESSOR_DEFINITIONS = AU_API;
+				GCC_SYMBOLS_PRIVATE_EXTERN = YES;
 				GENERATE_PKGINFO_FILE = YES;
+				HEADER_SEARCH_PATHS = ../;
 				INFOPLIST_EXPAND_BUILD_SETTINGS = YES;
 				INFOPLIST_FILE = "IPlugExampleAU-Info.plist";
 				INFOPLIST_PREPROCESS = YES;
-				INSTALL_PATH = "$(HOME)/Library/Audio/Plug-Ins/Components/";
-				LIBRARY_SEARCH_PATHS = (
-					../IPlug/Build/Release,
-					"\"$(SRCROOT)/../Crypto/build/Release\"",
-				);
+				INSTALL_PATH = /;
+				LIBRARY_SEARCH_PATHS = "\"$(SRCROOT)/../build/Release\"";
 				LIBRARY_STYLE = Bundle;
 				OTHER_LDFLAGS = "-bundle";
 				OTHER_REZFLAGS = "-d ppc_$ppc -d i386_$i386 -I /System/Library/Frameworks/CoreServices.framework/Frameworks/CarbonCore.framework/Versions/A/Headers -I /Developer/Examples/CoreAudio/AudioUnits/AUPublic/AUBase";
@@ -660,6 +682,7 @@
 				);
 				SDKROOT = "$(DEVELOPER_SDK_DIR)/MacOSX10.4u.sdk";
 				SHARED_PRECOMPS_DIR = "$(CACHE_ROOT)/SharedPrecompiledHeaders";
+				STRIP_INSTALLED_PRODUCT = YES;
 				WRAPPER_EXTENSION = component;
 				ZERO_LINK = NO;
 			};
@@ -668,7 +691,7 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		1DEB913A08733D840010E9CD /* Build configuration list for PBXNativeTarget "IPlugExample" */ = {
+		1DEB913A08733D840010E9CD /* Build configuration list for PBXNativeTarget "IPlugExampleVST" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				1DEB913B08733D840010E9CD /* Debug */,

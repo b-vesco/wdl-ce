@@ -683,7 +683,14 @@
 			isa = PBXProject;
 			buildConfigurationList = 1DEB922208733DC00010E9CD /* Build configuration list for PBXProject "IPlug" */;
 			compatibilityVersion = "Xcode 3.0";
+			developmentRegion = English;
 			hasScannedForEncodings = 1;
+			knownRegions = (
+				English,
+				Japanese,
+				French,
+				German,
+			);
 			mainGroup = 0867D691FE84028FC02AAC07 /* IPlug */;
 			productRefGroup = 034768DFFF38A50411DB9C8B /* Products */;
 			projectDirPath = "";
@@ -814,18 +821,15 @@
 				GCC_OPTIMIZATION_LEVEL = 0;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = IPlug_Prefix.pch;
-				GCC_PREPROCESSOR_DEFINITIONS = (
-					_DEBUG,
-					VST_FORCE_DEPRECATED,
-				);
+				GCC_PREPROCESSOR_DEFINITIONS = _DEBUG;
 				INSTALL_PATH = /usr/local/lib;
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
-					"\"$(SRCROOT)/../WDL/lice/build/Debug\"",
+					"\"$(SRCROOT)/../wdl/lice/build/Debug\"",
 				);
 				PRODUCT_NAME = IPlug;
 				SDKROOT = "$(DEVELOPER_SDK_DIR)/MacOSX10.4u.sdk";
-				SEPARATE_STRIP = NO;
+				ZERO_LINK = YES;
 			};
 			name = Debug;
 		};
@@ -838,18 +842,13 @@
 				GCC_MODEL_TUNING = G5;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = IPlug_Prefix.pch;
-				GCC_PREPROCESSOR_DEFINITIONS = (
-					NDEBUG,
-					VST_FORCE_DEPRECATED,
-				);
+				GCC_SYMBOLS_PRIVATE_EXTERN = YES;
 				INSTALL_PATH = /usr/local/lib;
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
-					"\"$(SRCROOT)/../WDL/lice/build/Release\"",
+					"\"$(SRCROOT)/../wdl/lice/build/Release\"",
 				);
 				PRODUCT_NAME = IPlug;
-				SDKROOT = "$(DEVELOPER_SDK_DIR)/MacOSX10.4u.sdk";
-				SEPARATE_STRIP = NO;
 			};
 			name = Release;
 		};
@@ -860,7 +859,10 @@
 					ppc,
 					i386,
 				);
-				GCC_PREPROCESSOR_DEFINITIONS = _DEBUG;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					VST_FORCE_DEPRECATED,
+					_DEBUG,
+				);
 				GCC_VERSION = 4.0;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
@@ -877,6 +879,10 @@
 				ARCHS = (
 					ppc,
 					i386,
+				);
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					VST_FORCE_DEPRECATED,
+					_NDEBUG,
 				);
 				GCC_VERSION = 4.0;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
@@ -895,6 +901,7 @@
 					ppc,
 					i386,
 				);
+				GCC_PREPROCESSOR_DEFINITIONS = VST_FORCE_DEPRECATED;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				GENERATE_PKGINFO_FILE = YES;
@@ -907,25 +914,17 @@
 		528359A50D7F0BF500577159 /* Tracer */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				COPY_PHASE_STRIP = NO;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
-				GCC_GENERATE_DEBUGGING_SYMBOLS = NO;
 				GCC_MODEL_TUNING = G5;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = IPlug_Prefix.pch;
-				GCC_PREPROCESSOR_DEFINITIONS = (
-					TRACER_BUILD,
-					NDEBUG,
-					VST_FORCE_DEPRECATED,
-				);
-				GCC_VERSION = 4.0;
+				GCC_PREPROCESSOR_DEFINITIONS = TRACER_BUILD;
 				INSTALL_PATH = /usr/local/lib;
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
-					"\"$(SRCROOT)/../WDL/lice/build/Release\"",
+					"\"$(SRCROOT)/../wdl/lice/build/Release\"",
 				);
 				PRODUCT_NAME = IPlug;
-				SEPARATE_STRIP = NO;
 			};
 			name = Tracer;
 		};
@@ -936,6 +935,7 @@
 					ppc,
 					i386,
 				);
+				GCC_PREPROCESSOR_DEFINITIONS = VST_FORCE_DEPRECATED;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				GENERATE_PKGINFO_FILE = YES;
@@ -948,25 +948,17 @@
 		52CC00410D2DFBE900EE9465 /* Reaper Special x86 */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				COPY_PHASE_STRIP = NO;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
-				GCC_GENERATE_DEBUGGING_SYMBOLS = NO;
 				GCC_MODEL_TUNING = G5;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = IPlug_Prefix.pch;
-				GCC_PREPROCESSOR_DEFINITIONS = (
-					REAPER_SPECIAL,
-					NDEBUG,
-					VST_FORCE_DEPRECATED,
-				);
-				GCC_VERSION = 4.0;
+				GCC_PREPROCESSOR_DEFINITIONS = REAPER_SPECIAL;
 				INSTALL_PATH = /usr/local/lib;
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
-					"\"$(SRCROOT)/../WDL/lice/build/Release\"",
+					"\"$(SRCROOT)/../wdl/lice/build/Release\"",
 				);
 				PRODUCT_NAME = IPlug;
-				SEPARATE_STRIP = NO;
 			};
 			name = "Reaper Special x86";
 		};
@@ -977,6 +969,7 @@
 					ppc,
 					i386,
 				);
+				GCC_PREPROCESSOR_DEFINITIONS = VST_FORCE_DEPRECATED;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				GENERATE_PKGINFO_FILE = YES;
@@ -989,25 +982,17 @@
 		52CC00450D2DFC3900EE9465 /* Reaper Special ppc */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				COPY_PHASE_STRIP = NO;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
-				GCC_GENERATE_DEBUGGING_SYMBOLS = NO;
 				GCC_MODEL_TUNING = G5;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = IPlug_Prefix.pch;
-				GCC_PREPROCESSOR_DEFINITIONS = (
-					REAPER_SPECIAL,
-					NDEBUG,
-					VST_FORCE_DEPRECATED,
-				);
-				GCC_VERSION = 4.0;
+				GCC_PREPROCESSOR_DEFINITIONS = REAPER_SPECIAL;
 				INSTALL_PATH = /usr/local/lib;
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
-					"\"$(SRCROOT)/../WDL/lice/build/Release\"",
+					"\"$(SRCROOT)/../wdl/lice/build/Release\"",
 				);
 				PRODUCT_NAME = IPlug;
-				SEPARATE_STRIP = NO;
 			};
 			name = "Reaper Special ppc";
 		};
