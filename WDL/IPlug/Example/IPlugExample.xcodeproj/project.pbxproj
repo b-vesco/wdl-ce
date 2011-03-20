@@ -110,7 +110,7 @@
 		52FBBED20D0CF13D001C8B8A /* IPlugExample.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IPlugExample.h; sourceTree = "<group>"; };
 		52FBBED30D0CF143001C8B8A /* resource.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = resource.h; sourceTree = "<group>"; };
 		8D5B49B6048680CD000E48DA /* IPlugExample.vst */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = IPlugExample.vst; sourceTree = BUILT_PRODUCTS_DIR; };
-		8D5B49B7048680CD000E48DA /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		8D5B49B7048680CD000E48DA /* IPlugExampleVST-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "IPlugExampleVST-Info.plist"; sourceTree = "<group>"; };
 		D2F7E65807B2D6F200F64583 /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = /System/Library/Frameworks/CoreData.framework; sourceTree = "<absolute>"; };
 /* End PBXFileReference section */
 
@@ -167,7 +167,7 @@
 			isa = PBXGroup;
 			children = (
 				52E8440D0D0E55A200961B48 /* img */,
-				8D5B49B7048680CD000E48DA /* Info.plist */,
+				8D5B49B7048680CD000E48DA /* IPlugExampleVST-Info.plist */,
 				52E41BB30D14C0F500A0943B /* IPlugExampleAU-Info.plist */,
 			);
 			name = Resources;
@@ -437,7 +437,7 @@
 				GENERATE_PKGINFO_FILE = YES;
 				HEADER_SEARCH_PATHS = ../;
 				INFOPLIST_EXPAND_BUILD_SETTINGS = YES;
-				INFOPLIST_FILE = Info.plist;
+				INFOPLIST_FILE = "IPlugExampleVST-Info.plist";
 				INSTALL_PATH = /;
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
@@ -462,7 +462,7 @@
 				GENERATE_PKGINFO_FILE = YES;
 				HEADER_SEARCH_PATHS = ../;
 				INFOPLIST_EXPAND_BUILD_SETTINGS = YES;
-				INFOPLIST_FILE = Info.plist;
+				INFOPLIST_FILE = "IPlugExampleVST-Info.plist";
 				INSTALL_PATH = /;
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
@@ -519,6 +519,7 @@
 				INSTALL_PATH = /;
 				PREBINDING = NO;
 				SDKROOT = "$(DEVELOPER_SDK_DIR)/MacOSX10.4u.sdk";
+				SYMROOT = "$(SRCROOT)/build-mac";
 				WRAPPER_EXTENSION = "";
 			};
 			name = Release;
@@ -531,6 +532,7 @@
 					i386,
 				);
 				EXECUTABLE_EXTENSION = "";
+				GCC_SYMBOLS_PRIVATE_EXTERN = YES;
 				GCC_VERSION = 4.0;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
@@ -561,11 +563,11 @@
 				GENERATE_PKGINFO_FILE = YES;
 				HEADER_SEARCH_PATHS = ../;
 				INFOPLIST_EXPAND_BUILD_SETTINGS = YES;
-				INFOPLIST_FILE = Info.plist;
+				INFOPLIST_FILE = "IPlugExampleVST-Info.plist";
 				INSTALL_PATH = /;
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
-					"\"$(SRCROOT)/../build/Debug\"",
+					"\"$(SRCROOT)/../build-mac/Debug\"",
 				);
 				PRODUCT_NAME = IPlugExample;
 				WRAPPER_EXTENSION = vst;
@@ -594,7 +596,7 @@
 				INFOPLIST_FILE = "IPlugExampleAU-Info.plist";
 				INFOPLIST_PREPROCESS = YES;
 				INSTALL_PATH = /;
-				LIBRARY_SEARCH_PATHS = "\"$(SRCROOT)/../build/Tracer\"";
+				LIBRARY_SEARCH_PATHS = "\"$(SRCROOT)/../build-mac/Tracer\"";
 				LIBRARY_STYLE = Bundle;
 				OTHER_LDFLAGS = "-bundle";
 				OTHER_REZFLAGS = "-d ppc_$ppc -d i386_$i386 -I /System/Library/Frameworks/CoreServices.framework/Frameworks/CarbonCore.framework/Versions/A/Headers -I /Developer/Examples/CoreAudio/AudioUnits/AUPublic/AUBase";
@@ -670,7 +672,7 @@
 				INFOPLIST_FILE = "IPlugExampleAU-Info.plist";
 				INFOPLIST_PREPROCESS = YES;
 				INSTALL_PATH = /;
-				LIBRARY_SEARCH_PATHS = "\"$(SRCROOT)/../build/Release\"";
+				LIBRARY_SEARCH_PATHS = "\"$(SRCROOT)/../build-mac/Release\"";
 				LIBRARY_STYLE = Bundle;
 				OTHER_LDFLAGS = "-bundle";
 				OTHER_REZFLAGS = "-d ppc_$ppc -d i386_$i386 -I /System/Library/Frameworks/CoreServices.framework/Frameworks/CarbonCore.framework/Versions/A/Headers -I /Developer/Examples/CoreAudio/AudioUnits/AUPublic/AUBase";
