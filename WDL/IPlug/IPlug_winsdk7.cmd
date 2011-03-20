@@ -30,10 +30,6 @@ rem
 rem  /x86 or /x64 only builds the specified platform, so you can e.g. do the
 rem  x86 builds using the Windows SDK v7.0, and the x64 build using v7.1.
 rem
-rem  Note: To build the IPlug lib without JPEG support, remove (or comment
-rem  out) the following line in IGraphicsWin.cpp:
-rem
-rem    if (!stricmp(ext, "jpg") || !stricmp(ext, "jpeg")) return _LICE::LICE_LoadJPGFromResource(mHInstance, ID, 0);
 
 :Usage
 if "%1"=="" goto SaveCurEnv
