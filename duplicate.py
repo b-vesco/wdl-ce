@@ -122,7 +122,7 @@ def main():
 		for dir in dirwalk(cpath, input, output, "Manufacturer", manufacturer):
 			pass
 		
-		xcuserfile = output + "/" + output + ".xcodeproj/oli.pbxuser"
+		xcuserfile = output + "/" + output + ".xcodeproj/wdlce.pbxuser"
 		#vsuserfile = + output + "/" + output + ".vcxproj.user
 		ans = raw_input("import default debug setups? y/n ...")
 
@@ -133,7 +133,7 @@ def main():
 				print "error: spaces in user name"
 				sys.exit(1)
 			else:
-				nxcuserfile = xcuserfile.replace("oli", osxun);
+				nxcuserfile = xcuserfile.replace("wdlce", osxun);
 				os.rename(xcuserfile, nxcuserfile)
 			
 		elif ans == "n":
