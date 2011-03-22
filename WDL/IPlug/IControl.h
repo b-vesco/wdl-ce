@@ -343,6 +343,9 @@ public:
     ICaptionControl(IPlugBase* pPlug, IRECT* pR, int paramIdx, IText* pText, bool showParamLabel = true);
     ~ICaptionControl() {}
 
+	virtual void OnMouseDown(int x, int y, IMouseMod* pMod);
+	virtual void OnMouseDblClick(int x, int y, IMouseMod* pMod);
+	
     bool Draw(IGraphics* pGraphics);
 
 protected:

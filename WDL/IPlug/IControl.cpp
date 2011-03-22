@@ -359,6 +359,18 @@ ICaptionControl::ICaptionControl(IPlugBase* pPlug, IRECT* pR, int paramIdx, ITex
     mParamIdx = paramIdx;
 }
 
+void ICaptionControl::OnMouseDown(int x, int y, IMouseMod* pMod)
+{
+	if (pMod->L || pMod->R) {
+		PromptUserInput();
+	}
+}
+
+void ICaptionControl::OnMouseDblClick(int x, int y, IMouseMod* pMod)
+{
+	PromptUserInput();
+}
+
 bool ICaptionControl::Draw(IGraphics* pGraphics)
 {
     IParam* pParam = mPlug->GetParam(mParamIdx);
