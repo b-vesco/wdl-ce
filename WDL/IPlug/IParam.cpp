@@ -105,33 +105,31 @@ double IParam::GetNormalized(double nonNormalizedValue)
 
 void IParam::GetDisplayForHost(double value, bool normalized, char* rDisplay)
 {
-  if (normalized) {
-    value = FromNormalizedParam(value, mMin, mMax, mShape);
-  }
-
-  const char* displayText = GetDisplayText((int) value);
-  if (CSTR_NOT_EMPTY(displayText)) {
-    strcpy(rDisplay, displayText);
-    return;
-  }
-
+    if (normalized) {
+        value = FromNormalizedParam(value, mMin, mMax, mShape);
+    }
+    
+    const char* displayText = GetDisplayText((int) value);
+    if (CSTR_NOT_EMPTY(displayText)) {
+        strcpy(rDisplay, displayText);
+        return;
+    }
+    
 	double displayValue = value;
 	if (mNegateDisplay) {
 		displayValue = -displayValue;
 	}
-
+    
 	if (displayValue == 0.0) {
 		strcpy(rDisplay, "0");
 	}
 	else
-	if (mDisplayPrecision == 0) {
-		sprintf(rDisplay, "%d", int(displayValue));
-	} 
-	else {
-		char fmt[16];
-		sprintf(fmt, "%%.%df", mDisplayPrecision);
-		sprintf(rDisplay, fmt, displayValue);
-	}
+        if (mDisplayPrecision == 0) {
+            sprintf(rDisplay, "%d", int(displayValue));
+        } 
+        else {
+            sprintf(rDisplay, "%.*f", mDisplayPrecision, displayValue);
+        }
 }
 
 const char* IParam::GetNameForHost()
