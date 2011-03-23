@@ -34,7 +34,7 @@
 // 4 chars, single quotes. must inclue ONLY one capital letter
 #define PLUG_UNIQUE_ID 'IplA'
 // make sure this is not the same as BUNDLE_MFR
-#define PLUG_MFR_ID 'oliL'
+#define PLUG_MFR_ID 'Acme'
 
 #define PLUG_CHANNEL_IO "1-1 2-2"
 
@@ -44,13 +44,9 @@
 #define PLUG_DOES_STATE_CHUNKS 0
 
 // Unique IDs for each image resource.
-//#define KNOB_ID	101
-//#define BG_ID		102
-//#define TEXT_ID	103
-//#define ABOUT_ID	104
+//#define KNOB_ID 101
+//#define BG_ID   102
 
 // Image resource locations for this plug.
-//#define KNOB_FN		"img/es_knob.60.png"
-//#define BG_FN			"img/esv3_bg_500x500.png"
-//#define TEXT_FN		"img/font-ProFontWindows-v.png"
-//#define ABOUT_FN		"img/esv3_about.png"
+//#define KNOB_FN "img/knob.png"
+//#define BG_FN   "img/bg.png"
