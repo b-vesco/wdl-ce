@@ -1,11 +1,18 @@
 ﻿
-Microsoft Visual Studio Solution File, Format Version 10.00
-# Visual C++ Express 2008
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "IPlugExample", "Example\IPlugExample.vcproj", "{D25032DF-715D-4AA1-A62C-31BC6CE4A4D6}"
+Microsoft Visual Studio Solution File, Format Version 11.00
+# Visual C++ Express 2010
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "IPlugExample", "Example\IPlugExample.vcxproj", "{D25032DF-715D-4AA1-A62C-31BC6CE4A4D6}"
+	ProjectSection(ProjectDependencies) = postProject
+		{D744660A-89B6-4EA7-A085-BF92ABE4540F} = {D744660A-89B6-4EA7-A085-BF92ABE4540F}
+		{141B3F4B-4BA7-472F-A213-EC4D1C06A8FC} = {141B3F4B-4BA7-472F-A213-EC4D1C06A8FC}
+	EndProjectSection
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "IPlug", "IPlug.vcproj", "{D744660A-89B6-4EA7-A085-BF92ABE4540F}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "IPlug", "IPlug.vcxproj", "{D744660A-89B6-4EA7-A085-BF92ABE4540F}"
+	ProjectSection(ProjectDependencies) = postProject
+		{141B3F4B-4BA7-472F-A213-EC4D1C06A8FC} = {141B3F4B-4BA7-472F-A213-EC4D1C06A8FC}
+	EndProjectSection
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "lice", "lice.vcproj", "{141B3F4B-4BA7-472F-A213-EC4D1C06A8FC}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "lice", "lice.vcxproj", "{141B3F4B-4BA7-472F-A213-EC4D1C06A8FC}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
