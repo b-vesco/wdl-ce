@@ -1,0 +1,8 @@
+//IPlugEffect Microsoft resource file
+#include "resource.h"
+
+
+//KNOB_ID	  	PNG	KNOB_FN
+//TEXT_ID		PNG	TEXT_FN	
+//BG_ID       PNG BG_FN
+//ABOUT_ID    PNG ABOUT_FN
