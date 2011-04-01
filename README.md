@@ -4,7 +4,7 @@ This project is a community maintained version of WDL/IPlug (originally by [Cock
 
 WDL "is a free and open source C++ library that is designed to be easily used by other code". For more info see the [Cockos WDL Home](http://www.cockos.com/wdl/).
 
-IPlug (part of WDL) is a cross platform framework for developing VST and Audiounit plugins. The WDL/IPlug Community Edition is an initiative started by a group of plugin developers with the goal of improving the framework which means... 
+IPlug (part of WDL) is a cross platform framework for developing VST and Audiounit plugins. The WDL/IPlug Community Edition is an initiative started by a group of plugin developers with the goal of improving the IPlug framework. This means... 
 
 * filling in missing features
 * fixing bugs
