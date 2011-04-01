@@ -457,12 +457,6 @@
 		4FB67766132D6C3C0020162C /* CoreServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 52E41CC40D14C2B000A0943B /* CoreServices.framework */; };
 		4FB67767132D6C3C0020162C /* CoreAudio.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 52E41CB90D14C2A900A0943B /* CoreAudio.framework */; };
 		4FB67769132D6C3C0020162C /* IPlugAU.r in Rez */ = {isa = PBXBuildFile; fileRef = 4F082B791116E82A0063D30F /* IPlugAU.r */; };
-		4FCF15B0133124D1009A6277 /* IPlugEffect.xcconfig in Resources */ = {isa = PBXBuildFile; fileRef = 4FCF15AF133124D1009A6277 /* IPlugEffect.xcconfig */; };
-		4FCF15B1133124D1009A6277 /* IPlugEffect.xcconfig in Resources */ = {isa = PBXBuildFile; fileRef = 4FCF15AF133124D1009A6277 /* IPlugEffect.xcconfig */; };
-		4FCF15B2133124D1009A6277 /* IPlugEffect.xcconfig in Resources */ = {isa = PBXBuildFile; fileRef = 4FCF15AF133124D1009A6277 /* IPlugEffect.xcconfig */; };
-		4FCF15B3133124D1009A6277 /* IPlugEffect.xcconfig in Resources */ = {isa = PBXBuildFile; fileRef = 4FCF15AF133124D1009A6277 /* IPlugEffect.xcconfig */; };
-		4FCF15B4133124D1009A6277 /* IPlugEffect.xcconfig in Resources */ = {isa = PBXBuildFile; fileRef = 4FCF15AF133124D1009A6277 /* IPlugEffect.xcconfig */; };
-		4FCF15B5133124D1009A6277 /* IPlugEffect.xcconfig in Resources */ = {isa = PBXBuildFile; fileRef = 4FCF15AF133124D1009A6277 /* IPlugEffect.xcconfig */; };
 		52C4DB190D0E51270007A920 /* Carbon.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 52C4DB180D0E51270007A920 /* Carbon.framework */; };
 		52FBBED10D0CF139001C8B8A /* IPlugEffect.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 52FBBED00D0CF139001C8B8A /* IPlugEffect.cpp */; };
 		8D5B49B4048680CD000E48DA /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1058C7ADFEA557BF11CA2CBB /* Cocoa.framework */; };
@@ -1171,7 +1165,6 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				4FCF15B3133124D1009A6277 /* IPlugEffect.xcconfig in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1179,7 +1172,6 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				4FCF15B1133124D1009A6277 /* IPlugEffect.xcconfig in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1187,7 +1179,6 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				4FCF15B2133124D1009A6277 /* IPlugEffect.xcconfig in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1195,7 +1186,6 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				4FCF15B4133124D1009A6277 /* IPlugEffect.xcconfig in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1203,7 +1193,6 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				4FCF15B5133124D1009A6277 /* IPlugEffect.xcconfig in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1211,7 +1200,6 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				4FCF15B0133124D1009A6277 /* IPlugEffect.xcconfig in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1718,7 +1706,7 @@
 		4F20EF30132C69FE0030E34C /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ARCHS = i386;
+				ARCHS = "$(ONLY_ACTIVE_ARCH_PRE_XCODE_3_1)";
 				COPY_PHASE_STRIP = NO;
 				DEPLOYMENT_LOCATION = YES;
 				DSTROOT = "$(VST_FOLDER)";
@@ -1740,9 +1728,11 @@
 				INFOPLIST_FILE = "IPlugEffectVST-Info.plist";
 				INSTALL_PATH = /;
 				LIBRARY_SEARCH_PATHS = "";
+				ONLY_ACTIVE_ARCH_PRE_XCODE_3_1 = "$(NATIVE_ARCH_ACTUAL)";
 				PRODUCT_NAME = "$(PROJECT_NAME)";
 				SDKROOT = "$(BASE_SDK)";
 				SYMROOT = "build-mac";
+				VALID_ARCHS = "i386 x86_64";
 				WRAPPER_EXTENSION = vst;
 				ZERO_LINK = YES;
 			};
@@ -1751,7 +1741,8 @@
 		4F20EF31132C69FE0030E34C /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ARCHS = i386;
+				ARCHS = "$(ARCHS_STANDARD_32_64_BIT_PRE_XCODE_3_1)";
+				ARCHS_STANDARD_32_64_BIT_PRE_XCODE_3_1 = "x86_64 i386 ppc";
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				DEPLOYMENT_LOCATION = YES;
 				DSTROOT = "$(VST_FOLDER)";
@@ -1777,6 +1768,7 @@
 				SKIP_INSTALL = NO;
 				STRIP_INSTALLED_PRODUCT = YES;
 				SYMROOT = "build-mac";
+				VALID_ARCHS = "i386 x86_64";
 				WRAPPER_EXTENSION = vst;
 			};
 			name = Release;
@@ -1784,7 +1776,8 @@
 		4F20EF32132C69FE0030E34C /* Tracer */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ARCHS = i386;
+				ARCHS = "$(ARCHS_STANDARD_32_64_BIT_PRE_XCODE_3_1)";
+				ARCHS_STANDARD_32_64_BIT_PRE_XCODE_3_1 = "x86_64 i386 ppc";
 				COPY_PHASE_STRIP = NO;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				DEPLOYMENT_LOCATION = YES;
@@ -1808,6 +1801,7 @@
 				PRODUCT_NAME = "$(PROJECT_NAME)";
 				SDKROOT = "$(BASE_SDK)";
 				SYMROOT = "build-mac";
+				VALID_ARCHS = "i386 x86_64";
 				WRAPPER_EXTENSION = vst;
 			};
 			name = Tracer;
@@ -1815,8 +1809,7 @@
 		4F3AE1DD12C0E5E2001FD7A4 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ARCHS = "$(ARCHS_STANDARD_32_64_BIT_PRE_XCODE_3_1)";
-				ARCHS_STANDARD_32_64_BIT_PRE_XCODE_3_1 = "x86_64 i386 ppc";
+				ARCHS = "$(ONLY_ACTIVE_ARCH_PRE_XCODE_3_1)";
 				COPY_PHASE_STRIP = NO;
 				DEPLOYMENT_LOCATION = YES;
 				DSTROOT = "$(AU_FOLDER)";
@@ -1839,6 +1832,7 @@
 				INSTALL_PATH = /;
 				LIBRARY_SEARCH_PATHS = "";
 				LIBRARY_STYLE = Bundle;
+				ONLY_ACTIVE_ARCH_PRE_XCODE_3_1 = "$(NATIVE_ARCH_ACTUAL)";
 				OTHER_LDFLAGS = "-bundle";
 				OTHER_REZFLAGS = "-d ppc_$ppc -d i386_$i386 -I /System/Library/Frameworks/CoreServices.framework/Frameworks/CarbonCore.framework/Versions/A/Headers -I /Developer/Examples/CoreAudio/AudioUnits/AUPublic/AUBase";
 				PREBINDING = YES;
