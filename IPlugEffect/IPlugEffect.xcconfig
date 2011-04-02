@@ -37,7 +37,7 @@ VST_DEFS = VST_API VST_FORCE_DEPRECATED
 AU_DEFS = AU_API
 
 // Preprocessor definitions for all Debug builds
-//DEBUG_DEFS =
+DEBUG_DEFS = _DEBUG
 
 // Preprocessor definitions for all Release builds
 RELEASE_DEFS = _NDEBUG
