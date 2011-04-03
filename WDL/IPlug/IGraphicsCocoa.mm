@@ -197,27 +197,16 @@ inline void EndUserInput(IGRAPHICS_COCOA* pGraphicsCocoa)
 
 - (void) controlTextDidEndEditing: (NSNotification*) aNotification
 {
-  const char* txt;
-  double v;
-
-  txt = [[mParamEditView stringValue] UTF8String];
-  if (mEdParam->GetNDisplayTexts())
-  {
-    int vi = (int)[mParamEditView indexOfSelectedItem];
-    if (vi == -1)
-    {
-      vi = 0;
-      mEdParam->MapDisplayText((char *)txt, &vi);
-    }
-    v = (double)vi;
-  }
-  else
-  {
-    v = atof(txt);
-    if (mEdParam->DisplayIsNegated()) v = -v;
-  }
-  mEdControl->SetValueFromUserInput(mEdParam->GetNormalized(v));
-
+  //char* txt = (char*)[[mParamEditView stringValue] UTF8String];
+  
+  NSInteger vi = -1;
+  if ([mParamEditView respondsToSelector: @selector(indexOfSelectedItem)] == YES)
+    vi = (NSInteger)[mParamEditView indexOfSelectedItem];
+  if (vi != -1)
+    mEdControl->SetValueFromUserInput(mEdParam->GetNormalized((double)vi));
+  //else
+    //mGraphics->SetFromStringAfterPrompt(mEdControl, mEdParam, txt);
+  
   EndUserInput(self);
   [self setNeedsDisplay: YES];
 }
