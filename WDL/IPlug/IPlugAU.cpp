@@ -866,7 +866,14 @@ ComponentResult IPlugAU::SetProperty(AudioUnitPropertyID propID, AudioUnitScope 
       RestorePreset(presetIdx);
       return noErr;
     }
-    NO_OP(kAudioUnitProperty_OfflineRender);             // 37,
+	case kAudioUnitProperty_OfflineRender: {			 // 37
+		UInt32 isOffline = * ((UInt32*) pData);
+		
+		this->mIsOffline = isOffline;
+			
+		return noErr;
+    }
+			
     NO_OP(kAudioUnitProperty_ParameterStringFromValue);  // 33,
     NO_OP(kAudioUnitProperty_ParameterValueFromString);  // 38,
     NO_OP(kAudioUnitProperty_IconLocation);              // 39,
@@ -1364,7 +1371,7 @@ IPlugAU::IPlugAU(IPlugInstanceInfo instanceInfo,
 : IPlugBase(nParams, channelIOStr, nPresets,
   effectName, productName, mfrName, vendorVersion, uniqueID, mfrID, latency,
   plugDoesMidi, plugDoesChunks, plugIsInst),
-  mCI(0), mBypassed(false), mRenderTimestamp(-1.0), mTempo(DEFAULT_TEMPO), mActive(false)
+  mCI(0), mBypassed(false), mIsOffline(false), mRenderTimestamp(-1.0), mTempo(DEFAULT_TEMPO), mActive(false)
 {
   Trace(TRACELOC, "%s", effectName);
 
@@ -1438,6 +1445,11 @@ void IPlugAU::EndInformHostOfParamChange(int idx)
 {
   Trace(TRACELOC, "%d", idx);
   SendAUEvent(kAudioUnitEvent_EndParameterChangeGesture, mCI, idx);
+}
+
+bool IPlugAU::IsRenderingOffline()
+{
+	return isOffline;
 }
 
 // Samples since start of project.
