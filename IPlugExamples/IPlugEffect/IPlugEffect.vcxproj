@@ -119,7 +119,7 @@
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
       <Optimization>Disabled</Optimization>
-      <AdditionalIncludeDirectories>..\wdl\Iplug;..\wdl\lice;..\VST_SDK\;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>..\..\WDL\Iplug;..\..\WDL\lice;..\..\VST_SDK\;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <PreprocessorDefinitions>VST_API;WIN32;_WIN32_WINNT=0x0501;WINVER=0x0501;_CRT_SECURE_NO_DEPRECATE;_DEBUG;PNG_USE_PNGVCRD;PNG_LIBPNG_SPECIALBUILD;__MMX__;PNG_HAVE_MMX_COMBINE_ROW;PNG_HAVE_MMX_READ_INTERLACE;PNG_HAVE_MMX_READ_FILTER_ROW;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <MinimalRebuild>true</MinimalRebuild>
       <BasicRuntimeChecks>EnableFastChecks</BasicRuntimeChecks>
@@ -152,7 +152,7 @@
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <ClCompile>
       <Optimization>Disabled</Optimization>
-      <AdditionalIncludeDirectories>..\wdl\Iplug;..\wdl\lice;..\VST_SDK\;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>..\..\WDL\Iplug;..\..\WDL\lice;..\..\VST_SDK\;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <PreprocessorDefinitions>PNG_USE_PNGVCRD;PNG_LIBPNG_SPECIALBUILD;PNG_NO_ASSEMBLER_CODE;VST_API;WIN32;_WIN32_WINNT=0x0501;WINVER=0x0501;_CRT_SECURE_NO_DEPRECATE;_DEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <BasicRuntimeChecks>EnableFastChecks</BasicRuntimeChecks>
       <RuntimeLibrary>MultiThreadedDebug</RuntimeLibrary>
@@ -183,7 +183,7 @@
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <ClCompile>
-      <AdditionalIncludeDirectories>..\wdl\IPlug\;..\wdl\lice\;..\VST_SDK\;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>..\..\WDL\IPlug\;..\..\WDL\lice\;..\..\VST_SDK\;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <PreprocessorDefinitions>VST_API;WIN32;_WIN32_WINNT=0x0501;WINVER=0x0501;_CRT_SECURE_NO_DEPRECATE;PNG_USE_PNGVCRD;PNG_LIBPNG_SPECIALBUILD;__MMX__;PNG_HAVE_MMX_COMBINE_ROW;PNG_HAVE_MMX_READ_INTERLACE;PNG_HAVE_MMX_READ_FILTER_ROW;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <RuntimeLibrary>MultiThreaded</RuntimeLibrary>
       <PrecompiledHeader>
@@ -199,7 +199,7 @@
     <Link>
       <AdditionalDependencies>wininet.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <OutputFile>$(OutDir)$(ProjectName).dll</OutputFile>
-      <AdditionalLibraryDirectories>..\wdl\IPlug\$(Configuration);..\wdl\lice\$(Configuration);%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalLibraryDirectories>..\..\WDL\IPlug\$(Configuration);..\..\WDL\lice\$(Configuration);%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <ModuleDefinitionFile>
       </ModuleDefinitionFile>
       <GenerateDebugInformation>true</GenerateDebugInformation>
@@ -215,7 +215,7 @@
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <ClCompile>
-      <AdditionalIncludeDirectories>..\wdl\IPlug\;..\wdl\lice\;..\VST_SDK\;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>..\..\WDL\IPlug\;..\..\WDL\lice\;..\..\VST_SDK\;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <PreprocessorDefinitions>PNG_USE_PNGVCRD;PNG_LIBPNG_SPECIALBUILD;PNG_NO_ASSEMBLER_CODE;VST_API;WIN32;_WIN32_WINNT=0x0501;WINVER=0x0501;_CRT_SECURE_NO_DEPRECATE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <RuntimeLibrary>MultiThreaded</RuntimeLibrary>
       <PrecompiledHeader>
@@ -232,7 +232,7 @@
     <Link>
       <AdditionalDependencies>wininet.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <OutputFile>$(OutDir)$(ProjectName).dll</OutputFile>
-      <AdditionalLibraryDirectories>..\wdl\IPlug\$(Configuration);..\wdl\lice\$(Configuration);%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalLibraryDirectories>..\..\WDL\IPlug\$(Configuration);..\..\WDL\lice\$(Configuration);%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <ModuleDefinitionFile>
       </ModuleDefinitionFile>
       <GenerateDebugInformation>true</GenerateDebugInformation>
@@ -247,7 +247,7 @@
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Tracer|Win32'">
     <ClCompile>
-      <AdditionalIncludeDirectories>..\wdl\IPlug\;..\wdl\lice\;..\VST_SDK\;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>..\..\WDL\IPlug\;..\..\WDL\lice\;..\..\VST_SDK\;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <PreprocessorDefinitions>TRACER_BUILD;VST_API;WIN32;_WIN32_WINNT=0x0501;WINVER=0x0501;_CRT_SECURE_NO_DEPRECATE;PNG_USE_PNGVCRD;PNG_LIBPNG_SPECIALBUILD;__MMX__;PNG_HAVE_MMX_COMBINE_ROW;PNG_HAVE_MMX_READ_INTERLACE;PNG_HAVE_MMX_READ_FILTER_ROW;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <RuntimeLibrary>MultiThreaded</RuntimeLibrary>
       <PrecompiledHeader>
@@ -260,7 +260,7 @@
     <Link>
       <AdditionalDependencies>wininet.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <OutputFile>$(OutDir)$(ProjectName).dll</OutputFile>
-      <AdditionalLibraryDirectories>..\wdl\IPlug\Release;..\wdl\lice\Release;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalLibraryDirectories>..\..\WDL\IPlug\Release;..\..\WDL\lice\Release;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <ModuleDefinitionFile>
       </ModuleDefinitionFile>
       <GenerateDebugInformation>true</GenerateDebugInformation>
@@ -276,7 +276,7 @@
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Tracer|x64'">
     <ClCompile>
-      <AdditionalIncludeDirectories>..\wdl\IPlug\;..\wdl\lice\;..\VST_SDK\;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>..\..\WDL\IPlug\;..\..\WDL\lice\;..\..\VST_SDK\;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <PreprocessorDefinitions>PNG_USE_PNGVCRD;PNG_LIBPNG_SPECIALBUILD;PNG_NO_ASSEMBLER_CODE;TRACER_BUILD;VST_API;WIN32;_WIN32_WINNT=0x0501;WINVER=0x0501;_CRT_SECURE_NO_DEPRECATE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <RuntimeLibrary>MultiThreaded</RuntimeLibrary>
       <PrecompiledHeader>
@@ -289,7 +289,7 @@
     <Link>
       <AdditionalDependencies>wininet.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <OutputFile>$(OutDir)$(ProjectName).dll</OutputFile>
-      <AdditionalLibraryDirectories>..\wdl\IPlug\Release;..\wdl\lice\Release;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalLibraryDirectories>..\..\WDL\IPlug\Release;..\..\WDL\lice\Release;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <ModuleDefinitionFile>
       </ModuleDefinitionFile>
       <GenerateDebugInformation>true</GenerateDebugInformation>
@@ -303,93 +303,98 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClInclude Include="..\VST_SDK\aeffect.h" />
-    <ClInclude Include="..\VST_SDK\aeffectx.h" />
-    <ClInclude Include="..\WDL\IPlug\Containers.h" />
-    <ClInclude Include="..\WDL\IPlug\Hosts.h" />
-    <ClInclude Include="..\WDL\IPlug\IControl.h" />
-    <ClInclude Include="..\WDL\IPlug\IGraphics.h" />
-    <ClInclude Include="..\WDL\IPlug\IGraphicsLice.h" />
-    <ClInclude Include="..\WDL\IPlug\IGraphicsWin.h" />
-    <ClInclude Include="..\WDL\IPlug\IParam.h" />
-    <ClInclude Include="..\WDL\IPlug\IPlugBase.h" />
-    <ClInclude Include="..\WDL\IPlug\IPlugStructs.h" />
-    <ClInclude Include="..\WDL\IPlug\IPlugVST.h" />
-    <ClInclude Include="..\WDL\IPlug\IPlug_include_in_plug_hdr.h" />
-    <ClInclude Include="..\WDL\IPlug\IPlug_include_in_plug_src.h" />
-    <ClInclude Include="..\WDL\IPlug\Log.h" />
-    <ClInclude Include="..\WDL\libpng\png.h" />
-    <ClInclude Include="..\WDL\libpng\pngconf.h" />
-    <ClInclude Include="..\WDL\lice\lice.h" />
-    <ClInclude Include="..\WDL\lice\lice_bezier.h" />
-    <ClInclude Include="..\WDL\lice\lice_combine.h" />
-    <ClInclude Include="..\WDL\lice\lice_extended.h" />
-    <ClInclude Include="..\WDL\lice\lice_text.h" />
-    <ClInclude Include="..\WDL\zlib\crc32.h" />
-    <ClInclude Include="..\WDL\zlib\deflate.h" />
-    <ClInclude Include="..\WDL\zlib\inffast.h" />
-    <ClInclude Include="..\WDL\zlib\inffixed.h" />
-    <ClInclude Include="..\WDL\zlib\inflate.h" />
-    <ClInclude Include="..\WDL\zlib\inftrees.h" />
-    <ClInclude Include="..\WDL\zlib\ioapi.h" />
-    <ClInclude Include="..\WDL\zlib\trees.h" />
-    <ClInclude Include="..\WDL\zlib\unzip.h" />
-    <ClInclude Include="..\WDL\zlib\zconf.h" />
-    <ClInclude Include="..\WDL\zlib\zconf.in.h" />
-    <ClInclude Include="..\WDL\zlib\zlib.h" />
-    <ClInclude Include="..\WDL\zlib\zutil.h" />
+    <ClInclude Include="..\..\VST_SDK\aeffect.h" />
+    <ClInclude Include="..\..\VST_SDK\aeffectx.h" />
+    <ClInclude Include="..\..\WDL\IPlug\Containers.h" />
+    <ClInclude Include="..\..\WDL\IPlug\Hosts.h" />
+    <ClInclude Include="..\..\WDL\IPlug\IControl.h" />
+    <ClInclude Include="..\..\WDL\IPlug\IGraphics.h" />
+    <ClInclude Include="..\..\WDL\IPlug\IGraphicsLice.h" />
+    <ClInclude Include="..\..\WDL\IPlug\IGraphicsWin.h" />
+    <ClInclude Include="..\..\WDL\IPlug\IParam.h" />
+    <ClInclude Include="..\..\WDL\IPlug\IPlugBase.h" />
+    <ClInclude Include="..\..\WDL\IPlug\IPlugStructs.h" />
+    <ClInclude Include="..\..\WDL\IPlug\IPlugVST.h" />
+    <ClInclude Include="..\..\WDL\IPlug\IPlug_include_in_plug_hdr.h" />
+    <ClInclude Include="..\..\WDL\IPlug\IPlug_include_in_plug_src.h" />
+    <ClInclude Include="..\..\WDL\IPlug\Log.h" />
+    <ClInclude Include="..\..\WDL\libpng\png.h" />
+    <ClInclude Include="..\..\WDL\libpng\pngconf.h" />
+    <ClInclude Include="..\..\WDL\lice\lice.h" />
+    <ClInclude Include="..\..\WDL\lice\lice_bezier.h" />
+    <ClInclude Include="..\..\WDL\lice\lice_combine.h" />
+    <ClInclude Include="..\..\WDL\lice\lice_extended.h" />
+    <ClInclude Include="..\..\WDL\lice\lice_text.h" />
+    <ClInclude Include="..\..\WDL\zlib\crc32.h" />
+    <ClInclude Include="..\..\WDL\zlib\deflate.h" />
+    <ClInclude Include="..\..\WDL\zlib\inffast.h" />
+    <ClInclude Include="..\..\WDL\zlib\inffixed.h" />
+    <ClInclude Include="..\..\WDL\zlib\inflate.h" />
+    <ClInclude Include="..\..\WDL\zlib\inftrees.h" />
+    <ClInclude Include="..\..\WDL\zlib\ioapi.h" />
+    <ClInclude Include="..\..\WDL\zlib\trees.h" />
+    <ClInclude Include="..\..\WDL\zlib\unzip.h" />
+    <ClInclude Include="..\..\WDL\zlib\zconf.h" />
+    <ClInclude Include="..\..\WDL\zlib\zconf.in.h" />
+    <ClInclude Include="..\..\WDL\zlib\zlib.h" />
+    <ClInclude Include="..\..\WDL\zlib\zutil.h" />
     <ClInclude Include="resource.h" />
     <ClInclude Include="IPlugEffect.h" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="..\WDL\IPlug\Hosts.cpp" />
-    <ClCompile Include="..\WDL\IPlug\IControl.cpp" />
-    <ClCompile Include="..\WDL\IPlug\IGraphics.cpp" />
-    <ClCompile Include="..\WDL\IPlug\IGraphicsLice.cpp" />
-    <ClCompile Include="..\WDL\IPlug\IGraphicsWin.cpp" />
-    <ClCompile Include="..\WDL\IPlug\IParam.cpp" />
-    <ClCompile Include="..\WDL\IPlug\IPlugBase.cpp" />
-    <ClCompile Include="..\WDL\IPlug\IPlugStructs.cpp" />
-    <ClCompile Include="..\WDL\IPlug\IPlugVST.cpp" />
-    <ClCompile Include="..\WDL\IPlug\Log.cpp" />
-    <ClCompile Include="..\WDL\libpng\png.c" />
-    <ClCompile Include="..\WDL\libpng\pngerror.c" />
-    <ClCompile Include="..\WDL\libpng\pnggccrd.c" />
-    <ClCompile Include="..\WDL\libpng\pngget.c" />
-    <ClCompile Include="..\WDL\libpng\pngmem.c" />
-    <ClCompile Include="..\WDL\libpng\pngpread.c" />
-    <ClCompile Include="..\WDL\libpng\pngread.c" />
-    <ClCompile Include="..\WDL\libpng\pngrio.c" />
-    <ClCompile Include="..\WDL\libpng\pngrtran.c" />
-    <ClCompile Include="..\WDL\libpng\pngrutil.c" />
-    <ClCompile Include="..\WDL\libpng\pngset.c" />
-    <ClCompile Include="..\WDL\libpng\pngtrans.c" />
-    <ClCompile Include="..\WDL\libpng\pngvcrd.c" />
-    <ClCompile Include="..\WDL\libpng\pngwio.c" />
-    <ClCompile Include="..\WDL\libpng\pngwrite.c" />
-    <ClCompile Include="..\WDL\libpng\pngwtran.c" />
-    <ClCompile Include="..\WDL\libpng\pngwutil.c" />
-    <ClCompile Include="..\WDL\lice\lice.cpp" />
-    <ClCompile Include="..\WDL\lice\lice_arc.cpp" />
-    <ClCompile Include="..\WDL\lice\lice_line.cpp" />
-    <ClCompile Include="..\WDL\lice\lice_png.cpp" />
-    <ClCompile Include="..\WDL\lice\lice_text.cpp" />
-    <ClCompile Include="..\WDL\lice\lice_textnew.cpp" />
-    <ClCompile Include="..\WDL\zlib\adler32.c" />
-    <ClCompile Include="..\WDL\zlib\compress.c" />
-    <ClCompile Include="..\WDL\zlib\crc32.c" />
-    <ClCompile Include="..\WDL\zlib\deflate.c" />
-    <ClCompile Include="..\WDL\zlib\gzio.c" />
-    <ClCompile Include="..\WDL\zlib\infback.c" />
-    <ClCompile Include="..\WDL\zlib\inffast.c" />
-    <ClCompile Include="..\WDL\zlib\inflate.c" />
-    <ClCompile Include="..\WDL\zlib\inftrees.c" />
-    <ClCompile Include="..\WDL\zlib\ioapi.c" />
-    <ClCompile Include="..\WDL\zlib\trees.c" />
-    <ClCompile Include="..\WDL\zlib\uncompr.c" />
-    <ClCompile Include="..\WDL\zlib\unzip.c" />
-    <ClCompile Include="..\WDL\zlib\zutil.c" />
+    <ClCompile Include="..\..\WDL\IPlug\Hosts.cpp" />
+    <ClCompile Include="..\..\WDL\IPlug\IControl.cpp" />
+    <ClCompile Include="..\..\WDL\IPlug\IGraphics.cpp" />
+    <ClCompile Include="..\..\WDL\IPlug\IGraphicsLice.cpp" />
+    <ClCompile Include="..\..\WDL\IPlug\IGraphicsWin.cpp" />
+    <ClCompile Include="..\..\WDL\IPlug\IParam.cpp" />
+    <ClCompile Include="..\..\WDL\IPlug\IPlugBase.cpp" />
+    <ClCompile Include="..\..\WDL\IPlug\IPlugStructs.cpp" />
+    <ClCompile Include="..\..\WDL\IPlug\IPlugVST.cpp" />
+    <ClCompile Include="..\..\WDL\IPlug\Log.cpp" />
+    <ClCompile Include="..\..\WDL\libpng\png.c" />
+    <ClCompile Include="..\..\WDL\libpng\pngerror.c" />
+    <ClCompile Include="..\..\WDL\libpng\pnggccrd.c" />
+    <ClCompile Include="..\..\WDL\libpng\pngget.c" />
+    <ClCompile Include="..\..\WDL\libpng\pngmem.c" />
+    <ClCompile Include="..\..\WDL\libpng\pngpread.c" />
+    <ClCompile Include="..\..\WDL\libpng\pngread.c" />
+    <ClCompile Include="..\..\WDL\libpng\pngrio.c" />
+    <ClCompile Include="..\..\WDL\libpng\pngrtran.c" />
+    <ClCompile Include="..\..\WDL\libpng\pngrutil.c" />
+    <ClCompile Include="..\..\WDL\libpng\pngset.c" />
+    <ClCompile Include="..\..\WDL\libpng\pngtrans.c" />
+    <ClCompile Include="..\..\WDL\libpng\pngvcrd.c" />
+    <ClCompile Include="..\..\WDL\libpng\pngwio.c" />
+    <ClCompile Include="..\..\WDL\libpng\pngwrite.c" />
+    <ClCompile Include="..\..\WDL\libpng\pngwtran.c" />
+    <ClCompile Include="..\..\WDL\libpng\pngwutil.c" />
+    <ClCompile Include="..\..\WDL\lice\lice.cpp" />
+    <ClCompile Include="..\..\WDL\lice\lice_arc.cpp" />
+    <ClCompile Include="..\..\WDL\lice\lice_colorspace.cpp" />
+    <ClCompile Include="..\..\WDL\lice\lice_image.cpp" />
+    <ClCompile Include="..\..\WDL\lice\lice_line.cpp" />
+    <ClCompile Include="..\..\WDL\lice\lice_png.cpp" />
+    <ClCompile Include="..\..\WDL\lice\lice_text.cpp" />
+    <ClCompile Include="..\..\WDL\lice\lice_textnew.cpp" />
+    <ClCompile Include="..\..\WDL\zlib\adler32.c" />
+    <ClCompile Include="..\..\WDL\zlib\compress.c" />
+    <ClCompile Include="..\..\WDL\zlib\crc32.c" />
+    <ClCompile Include="..\..\WDL\zlib\deflate.c" />
+    <ClCompile Include="..\..\WDL\zlib\gzio.c" />
+    <ClCompile Include="..\..\WDL\zlib\infback.c" />
+    <ClCompile Include="..\..\WDL\zlib\inffast.c" />
+    <ClCompile Include="..\..\WDL\zlib\inflate.c" />
+    <ClCompile Include="..\..\WDL\zlib\inftrees.c" />
+    <ClCompile Include="..\..\WDL\zlib\ioapi.c" />
+    <ClCompile Include="..\..\WDL\zlib\trees.c" />
+    <ClCompile Include="..\..\WDL\zlib\uncompr.c" />
+    <ClCompile Include="..\..\WDL\zlib\unzip.c" />
+    <ClCompile Include="..\..\WDL\zlib\zutil.c" />
     <ClCompile Include="IPlugEffect.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="IPlugEffect.rc" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
