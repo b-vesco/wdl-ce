@@ -3,13 +3,16 @@
 // Global settings
 
 // path to iplug folder
-IPLUG_PATH = $(SRCROOT)/../wdl/IPlug/
+IPLUG_PATH = $(SRCROOT)/../../WDL/IPlug/
 
 // Which comipler to use
 COMPILER = 4.2 // 4.0 = GCC 4.0, 4.2
 
 // What is the minimum OS to support?
 BASE_SDK = macosx10.5 // macosx10.4, macosx10.5, macosx10.6
+//SDKROOT = /Developer/SDKs/MacOSX10.4u.sdk
+SDKROOT = /Developer/SDKs/MacOSX10.5.sdk
+//SDKROOT = /Developer/SDKs/MacOSX10.6.sdk
 
 // Flags to pass to compiler for all builds
 GCC_CFLAGS = -Wno-write-strings
