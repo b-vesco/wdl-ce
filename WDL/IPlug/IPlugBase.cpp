@@ -678,7 +678,7 @@ void IPlugBase::DumpPresetSrcCode(const char* filename, const char* paramEnumNam
           break;
         case IParam::kTypeDouble:
         default:
-          sprintf(paramVal, "%.2f", pParam->Value());
+          sprintf(paramVal, "%.6f", pParam->Value());
           break;
       }
       fprintf(fp, ",\n    %s, %s", paramEnumNames[i], paramVal);
