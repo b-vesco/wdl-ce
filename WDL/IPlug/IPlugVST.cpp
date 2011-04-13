@@ -4,7 +4,6 @@
 
 const int VST_VERSION = 2400;
 
-
 int VSTSpkrArrType(int nchan)
 {
   if (!nchan) return kSpeakerArrEmpty;
@@ -41,8 +40,8 @@ IPlugVST::IPlugVST(IPlugInstanceInfo instanceInfo, int nParams, const char* chan
 	mAEffect.numOutputs = nOutputs;
 	mAEffect.uniqueID = uniqueID;
 	mAEffect.version = GetEffectVersion(true);
-	mAEffect.__ioRatioDeprecated = 1.0f;
-	mAEffect.__processDeprecated = VSTProcess;
+	mAEffect.DECLARE_VST_DEPRECATED (ioRatio) = 1.0f;
+	mAEffect.DECLARE_VST_DEPRECATED (process) = VSTProcess;
 	mAEffect.processReplacing = VSTProcessReplacing;
 	mAEffect.processDoubleReplacing = VSTProcessDoubleReplacing;
 	mAEffect.initialDelay = latency;
@@ -51,7 +50,7 @@ IPlugVST::IPlugVST(IPlugInstanceInfo instanceInfo, int nParams, const char* chan
     mAEffect.flags |= effFlagsProgramChunks;
   }
   if (LegalIO(1, -1)) {
-    mAEffect.flags |= __effFlagsCanMonoDeprecated;
+    mAEffect.flags |= DECLARE_VST_DEPRECATED(effFlagsCanMono);
   }
   if (plugIsInst) {
     mAEffect.flags |= effFlagsIsSynth;
@@ -171,6 +170,11 @@ void IPlugVST::ResizeGraphics(int w, int h)
   }
 }
 
+bool IPlugVST::IsRenderingOffline()
+{
+	return mHostCallback (&mAEffect, audioMasterGetCurrentProcessLevel, 0, 0, 0, 0.0f) == kVstProcessLevelOffline;
+}
+
 void IPlugVST::SetLatency(int samples)
 {
     mAEffect.initialDelay = samples;
@@ -275,7 +279,7 @@ VstIntPtr VSTCALLBACK IPlugVST::VSTDispatcher(AEffect *pEffect, VstInt32 opCode,
   // Handle a couple of opcodes here to make debugging easier.
   switch (opCode) {
     case effEditIdle:
-    case __effIdleDeprecated:
+    case DECLARE_VST_DEPRECATED(effIdle):
       #ifdef USE_IDLE_CALLS
         _this->OnIdle();
       #endif
@@ -373,7 +377,7 @@ VstIntPtr VSTCALLBACK IPlugVST::VSTDispatcher(AEffect *pEffect, VstInt32 opCode,
 	    }
 	    return 0;
     }
-    case __effIdentifyDeprecated: {
+    case DECLARE_VST_DEPRECATED(effIdentify): {
       return 'NvEf';  // Random deprecated magic.
     }
     case effGetChunk: {
@@ -625,7 +629,7 @@ template <class SAMPLETYPE>
 void IPlugVST::VSTPrepProcess(SAMPLETYPE** inputs, SAMPLETYPE** outputs, VstInt32 nFrames)
 {
   if (mDoesMidi) {
-    mHostCallback(&mAEffect, __audioMasterWantMidiDeprecated, 0, 0, 0, 0.0f);
+    mHostCallback(&mAEffect, DECLARE_VST_DEPRECATED(audioMasterWantMidi), 0, 0, 0, 0.0f);
   }
   AttachInputBuffers(0, NInChannels(), inputs, nFrames);
   AttachOutputBuffers(0, NOutChannels(), outputs);
