@@ -1449,7 +1449,7 @@ void IPlugAU::EndInformHostOfParamChange(int idx)
 
 bool IPlugAU::IsRenderingOffline()
 {
-	return isOffline;
+	return mIsOffline;
 }
 
 // Samples since start of project.
