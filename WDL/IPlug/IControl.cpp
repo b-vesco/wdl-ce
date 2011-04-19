@@ -354,9 +354,10 @@ bool ITextControl::Draw(IGraphics* pGraphics)
 }
 
 ICaptionControl::ICaptionControl(IPlugBase* pPlug, IRECT* pR, int paramIdx, IText* pText, bool showParamLabel)
-:   ITextControl(pPlug, pR, pText), mShowParamLabel(showParamLabel) 
+:   ITextControl(pPlug, pR, pText), mShowParamLabel(showParamLabel)
 {
     mParamIdx = paramIdx;
+    mDisablePrompt = false;
 }
 
 void ICaptionControl::OnMouseDown(int x, int y, IMouseMod* pMod)

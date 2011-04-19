@@ -19,7 +19,7 @@ public:
 	// If paramIdx is > -1, this control will be associated with a plugin parameter.
   IControl(IPlugBase* pPlug, IRECT* pR, int paramIdx = -1, IChannelBlend blendMethod = IChannelBlend::kBlendNone)
 	:	mPlug(pPlug), mRECT(*pR), mTargetRECT(*pR), mParamIdx(paramIdx), mValue(0.0), mDefaultValue(-1.0),
-        mBlend(blendMethod), mDirty(true), mHide(false), mGrayed(false), mDisablePrompt(false), mDblAsSingleClick(false), 
+        mBlend(blendMethod), mDirty(true), mHide(false), mGrayed(false), mDisablePrompt(true), mDblAsSingleClick(false), 
         mClampLo(0.0), mClampHi(1.0) {}
 
 	virtual ~IControl() {}
