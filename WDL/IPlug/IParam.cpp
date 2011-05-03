@@ -154,7 +154,7 @@ const char* IParam::GetDisplayText(double value)
   if (n) {
     DisplayText* pDT = mDisplayTexts.Get();
     for (int i = 0; i < n; ++i, ++pDT) {
-      if (value == pDT->mValue) {
+      if (AreEqual(value, pDT->mValue)) {
         return pDT->mText;
       }
     }
