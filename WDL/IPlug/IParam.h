@@ -6,15 +6,6 @@
 
 const int MAX_PARAM_NAME_LEN = 32;
 
-#ifndef MIN_DBL_EQUAL
-#define MIN_DBL_EQUAL 0.00001
-#endif
-
-inline bool AreEqual(double a, double b)
-{
-  return fabs(a - b) < MIN_DBL_EQUAL;
-}
-
 inline double ToNormalizedParam(double nonNormalizedValue, double min, double max, double shape)
 {
   return pow((nonNormalizedValue - min) / (max - min), 1.0 / shape);
