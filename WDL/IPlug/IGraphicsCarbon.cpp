@@ -168,7 +168,8 @@ pascal void IGraphicsCarbon::CarbonTimerHandler(EventLoopTimerRef pTimer, void* 
   IRECT r;
   if (_this->mGraphicsMac->IsDirty(&r)) {
     if (_this->mIsComposited) {
-      HIViewSetNeedsDisplayInRect(_this->mView, &CGRectMake(r.L, r.T, r.W(), r.H()), true);
+      CGRect rct = CGRectMake(r.L, r.T, r.W(), r.H());
+      HIViewSetNeedsDisplayInRect(_this->mView, &rct, true);
     }
     else {
       int h = _this->mGraphicsMac->Height();
@@ -316,7 +317,8 @@ bool IGraphicsCarbon::Resize(int w, int h)
 {
   if (mWindow && mView) {
     ResizeWindow(mWindow, w, h);
-    return (HIViewSetFrame(mView, &CGRectMake(0, 0, w, h)) == noErr);
+    CGRect rct = CGRectMake(0, 0, w, h);
+    return (HIViewSetFrame(mView, &rct) == noErr);
   }
   return false;
 }
