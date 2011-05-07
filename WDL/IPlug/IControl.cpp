@@ -117,7 +117,7 @@ void ISwitchControl::OnMouseDown(int x, int y, IMouseMod* pMod)
 	SetDirty();
 }
 
-IInvisibleSwitchControl::IInvisibleSwitchControl(IPlugBase* pPlug, IRECT* pR, int paramIdx)
+IInvisibleSwitchControl::IInvisibleSwitchControl(IPlugBase* pPlug, IRECT pR, int paramIdx)
 :   IControl(pPlug, pR, paramIdx, IChannelBlend::kBlendClobber)
 {
     mDisablePrompt = true;
@@ -134,21 +134,21 @@ void IInvisibleSwitchControl::OnMouseDown(int x, int y, IMouseMod* pMod)
     SetDirty();
 }
 
-IRadioButtonsControl::IRadioButtonsControl(IPlugBase* pPlug, IRECT* pR, int paramIdx, int nButtons, 
+IRadioButtonsControl::IRadioButtonsControl(IPlugBase* pPlug, IRECT pR, int paramIdx, int nButtons, 
     IBitmap* pBitmap, EDirection direction)
 :   IControl(pPlug, pR, paramIdx), mBitmap(*pBitmap)
 {
     mRECTs.Resize(nButtons);
     int x = mRECT.L, y = mRECT.T, h = int((double) pBitmap->H / (double) pBitmap->N);
     if (direction == kHorizontal) {
-        int dX = int((double) (pR->W() - nButtons * pBitmap->W) / (double) (nButtons - 1));
+        int dX = int((double) (pR.W() - nButtons * pBitmap->W) / (double) (nButtons - 1));
         for (int i = 0; i < nButtons; ++i) {
             mRECTs.Get()[i] = IRECT(x, y, x + pBitmap->W, y + h);
             x += pBitmap->W + dX;
         }
     }
     else {
-        int dY = int((double) (pR->H() - nButtons * h) /  (double) (nButtons - 1));
+        int dY = int((double) (pR.H() - nButtons * h) /  (double) (nButtons - 1));
         for (int i = 0; i < nButtons; ++i) {
             mRECTs.Get()[i] = IRECT(x, y, x + pBitmap->W, y + h);
             y += h + dY;
@@ -195,7 +195,7 @@ void IContactControl::OnMouseUp(int x, int y, IMouseMod* pMod)
 }
 
 IFaderControl::IFaderControl(IPlugBase* pPlug, int x, int y, int len, int paramIdx, IBitmap* pBitmap, EDirection direction)
-:	IControl(pPlug, &IRECT(), paramIdx), mLen(len), mBitmap(*pBitmap), mDirection(direction)
+:	IControl(pPlug, IRECT(), paramIdx), mLen(len), mBitmap(*pBitmap), mDirection(direction)
 {
 	if (direction == kVertical) {
         mHandleHeadroom = mBitmap.H;
@@ -275,7 +275,7 @@ void IKnobControl::OnMouseDrag(int x, int y, int dX, int dY, IMouseMod* pMod)
 	SetDirty();
 }
 
-IKnobLineControl::IKnobLineControl(IPlugBase* pPlug, IRECT* pR, int paramIdx, 
+IKnobLineControl::IKnobLineControl(IPlugBase* pPlug, IRECT pR, int paramIdx, 
     const IColor* pColor, double innerRadius, double outerRadius,
     double minAngle, double maxAngle, EDirection direction, double gearing)
 :   IKnobControl(pPlug, pR, paramIdx, direction, gearing), 
@@ -286,7 +286,7 @@ IKnobLineControl::IKnobLineControl(IPlugBase* pPlug, IRECT* pR, int paramIdx,
     mInnerRadius = (float) innerRadius;
     mOuterRadius = (float) outerRadius;
     if (mOuterRadius == 0.0f) {
-        mOuterRadius = 0.5f * (float) pR->W();
+        mOuterRadius = 0.5f * (float) pR.W();
     }
     mBlend = IChannelBlend(IChannelBlend::kBlendClobber);
 }
@@ -353,7 +353,7 @@ bool ITextControl::Draw(IGraphics* pGraphics)
   return true;
 }
 
-ICaptionControl::ICaptionControl(IPlugBase* pPlug, IRECT* pR, int paramIdx, IText* pText, bool showParamLabel)
+ICaptionControl::ICaptionControl(IPlugBase* pPlug, IRECT pR, int paramIdx, IText* pText, bool showParamLabel)
 :   ITextControl(pPlug, pR, pText), mShowParamLabel(showParamLabel)
 {
     mParamIdx = paramIdx;
@@ -385,7 +385,7 @@ bool ICaptionControl::Draw(IGraphics* pGraphics)
     return ITextControl::Draw(pGraphics);
 }
 
-IURLControl::IURLControl(IPlugBase* pPlug, IRECT* pR, const char* url, const char* backupURL, const char* errMsgOnFailure)
+IURLControl::IURLControl(IPlugBase* pPlug, IRECT pR, const char* url, const char* backupURL, const char* errMsgOnFailure)
 : IControl(pPlug, pR)
 {
   memset(mURL, 0, MAX_URL_LEN);
