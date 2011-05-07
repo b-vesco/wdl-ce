@@ -26,7 +26,7 @@ enum EParamEditMsg {
 
 inline IMouseMod GetMouseMod(WPARAM wParam)
 {
-	return IMouseMod((wParam & MK_LBUTTON), (wParam & MK_RBUTTON), 
+	return IMouseMod((wParam & MK_LBUTTON), (wParam & MK_RBUTTON),
         (wParam & MK_SHIFT), (wParam & MK_CONTROL), GetKeyState(VK_MENU) < 0);
 }
 
@@ -102,7 +102,7 @@ LRESULT CALLBACK IGraphicsWin::WndProc(HWND hWnd, UINT msg, WPARAM wParam, LPARA
 							pGraphics->mEdControl = 0;
 							pGraphics->mDefEditProc = 0;
             }
-            break;            
+            break;
           }
 					pGraphics->mParamEditMsg = kNone;
 					//return 0;
@@ -130,21 +130,22 @@ LRESULT CALLBACK IGraphicsWin::WndProc(HWND hWnd, UINT msg, WPARAM wParam, LPARA
     case WM_LBUTTONDOWN: {
 			if (pGraphics->mParamEditWnd) pGraphics->mParamEditMsg = kCommit;
 			SetCapture(hWnd);
-			pGraphics->OnMouseDown(GET_X_LPARAM(lParam), GET_Y_LPARAM(lParam), &GetMouseMod(wParam));
+			IMouseMod ms = GetMouseMod(wParam);
+			pGraphics->OnMouseDown(GET_X_LPARAM(lParam), GET_Y_LPARAM(lParam), &ms);
 			return 0;
     }
     case WM_MOUSEMOVE: {
-			if (!(wParam & (MK_LBUTTON | MK_RBUTTON))) { 
-        if (pGraphics->OnMouseOver(GET_X_LPARAM(lParam), GET_Y_LPARAM(lParam), &GetMouseMod(wParam))) {
-          TRACKMOUSEEVENT eventTrack = { sizeof(TRACKMOUSEEVENT), TME_LEAVE, hWnd, HOVER_DEFAULT };
-          TrackMouseEvent(&eventTrack);
-        }
-			}
-      else
-			if (GetCapture() == hWnd) {
-				pGraphics->OnMouseDrag(GET_X_LPARAM(lParam), GET_Y_LPARAM(lParam), &GetMouseMod(wParam));
-			}
-			return 0;
+        IMouseMod ms = GetMouseMod(wParam);
+			  if (!(wParam & (MK_LBUTTON | MK_RBUTTON))) {
+          if (pGraphics->OnMouseOver(GET_X_LPARAM(lParam), GET_Y_LPARAM(lParam), &ms)) {
+            TRACKMOUSEEVENT eventTrack = { sizeof(TRACKMOUSEEVENT), TME_LEAVE, hWnd, HOVER_DEFAULT };
+            TrackMouseEvent(&eventTrack);
+          }
+			  }
+        else if (GetCapture() == hWnd) {
+				  pGraphics->OnMouseDrag(GET_X_LPARAM(lParam), GET_Y_LPARAM(lParam), &ms);
+			  }
+        return 0;
     }
     case WM_MOUSELEAVE: {
       pGraphics->OnMouseOut();
@@ -153,11 +154,13 @@ LRESULT CALLBACK IGraphicsWin::WndProc(HWND hWnd, UINT msg, WPARAM wParam, LPARA
     case WM_LBUTTONUP:
     case WM_RBUTTONUP: {
       ReleaseCapture();
-			pGraphics->OnMouseUp(GET_X_LPARAM(lParam), GET_Y_LPARAM(lParam), &GetMouseMod(wParam));
+      IMouseMod ms = GetMouseMod(wParam);
+			pGraphics->OnMouseUp(GET_X_LPARAM(lParam), GET_Y_LPARAM(lParam), &ms);
 			return 0;
     }
     case WM_LBUTTONDBLCLK: {
-      if (pGraphics->OnMouseDblClick(GET_X_LPARAM(lParam), GET_Y_LPARAM(lParam), &GetMouseMod(wParam))) {
+      IMouseMod ms = GetMouseMod(wParam);
+      if (pGraphics->OnMouseDblClick(GET_X_LPARAM(lParam), GET_Y_LPARAM(lParam), &ms)) {
         SetCapture(hWnd);
       }
 			return 0;
@@ -171,14 +174,15 @@ LRESULT CALLBACK IGraphicsWin::WndProc(HWND hWnd, UINT msg, WPARAM wParam, LPARA
 			int x = GET_X_LPARAM(lParam), y = GET_Y_LPARAM(lParam);
 			RECT r;
 			GetWindowRect(hWnd, &r);
-			pGraphics->OnMouseWheel(x - r.left, y - r.top, &GetMouseMod(wParam), d);
+			IMouseMod ms = GetMouseMod(wParam);
+			pGraphics->OnMouseWheel(x - r.left, y - r.top, &ms, d);
 			return 0;
 		}
 
     case WM_KEYDOWN:
     {
       bool ok = true;
-      int key;     
+      int key;
 
       if (wParam == VK_SPACE) key = KEY_SPACE;
       else if (wParam == VK_UP) key = KEY_UPARROW;
@@ -193,7 +197,7 @@ LRESULT CALLBACK IGraphicsWin::WndProc(HWND hWnd, UINT msg, WPARAM wParam, LPARA
       if (ok)
       {
         POINT p;
-        GetCursorPos(&p); 
+        GetCursorPos(&p);
         ScreenToClient(hWnd, &p);
         pGraphics->OnKeyDown(p.x, p.y, key);
       }
@@ -224,12 +228,12 @@ LRESULT CALLBACK IGraphicsWin::WndProc(HWND hWnd, UINT msg, WPARAM wParam, LPARA
 	return DefWindowProc(hWnd, msg, wParam, lParam);
 }
 
-// static 
+// static
 LRESULT CALLBACK IGraphicsWin::ParamEditProc(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam)
 {
 	IGraphicsWin* pGraphics = (IGraphicsWin*) GetWindowLongPtr(hWnd, GWLP_USERDATA);
 
-	if (pGraphics && pGraphics->mParamEditWnd && pGraphics->mParamEditWnd == hWnd) 
+	if (pGraphics && pGraphics->mParamEditWnd && pGraphics->mParamEditWnd == hWnd)
   {
 		switch (msg) {
 			case WM_KEYDOWN: {
@@ -255,7 +259,7 @@ LRESULT CALLBACK IGraphicsWin::ParamEditProc(HWND hWnd, UINT msg, WPARAM wParam,
 							return 0;
 						}
 					}
-				
+
 				}
 				break;	// Else let the default proc handle it.
 			}
@@ -266,7 +270,7 @@ LRESULT CALLBACK IGraphicsWin::ParamEditProc(HWND hWnd, UINT msg, WPARAM wParam,
 }
 
 IGraphicsWin::IGraphicsWin(IPlugBase* pPlug, int w, int h, int refreshFPS)
-:	IGraphicsLice(pPlug, w, h, refreshFPS), mPlugWnd(0), mParamEditWnd(0), 
+:	IGraphicsLice(pPlug, w, h, refreshFPS), mPlugWnd(0), mParamEditWnd(0),
   mPID(0), mParentWnd(0), mMainWnd(0), mCustomColorStorage(0),
 	mEdControl(0), mEdParam(0), mDefEditProc(0), mParamEditMsg(kNone), mIdleTicks(0),
   mFontActive(false), mHInstance(0)
@@ -341,7 +345,7 @@ void IGraphicsWin::Resize(int w, int h)
     if (pGrandparent) {
       SetWindowPos(pGrandparent, 0, 0, 0, grandparentW + dw, grandparentH + dh, SETPOS_FLAGS);
     }
-          
+
     RECT r = { 0, 0, w, h };
     InvalidateRect(mPlugWnd, &r, FALSE);
   }
@@ -388,7 +392,7 @@ void* IGraphicsWin::OpenWindow(void* pParentWnd)
 	}
   else {
     SetAllControlsDirty();
-  }  
+  }
 
 	return mPlugWnd;
 }
@@ -505,7 +509,7 @@ void IGraphicsWin::PromptUserInput(IControl* pControl, IParam* pParam)
 			if (!strcmp(str, currentText)) {
 				currentIdx = i;
 			}
-		}			
+		}
 
 		mParamEditWnd = CreateWindow("COMBOBOX", "", WS_CHILD | WS_VISIBLE | CBS_DROPDOWNLIST,
 			cX - w/2, cY, w, h, mPlugWnd, (HMENU) PARAM_EDIT_ID, mHInstance, 0);
@@ -530,15 +534,15 @@ void IGraphicsWin::PromptUserInput(IControl* pControl, IParam* pParam)
   IText txt;
 	HFONT font = CreateFont(txt.mSize, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, txt.mFont);
 	SendMessage(mParamEditWnd, WM_SETFONT, (WPARAM) font, 0);
-	//DeleteObject(font);	
+	//DeleteObject(font);
 
 	mEdControl = pControl;
-	mEdParam = pParam;	
+	mEdParam = pParam;
 }
 
 #define MAX_PATH_LEN 256
 
-void GetModulePath(HMODULE hModule, WDL_String* pPath) 
+void GetModulePath(HMODULE hModule, WDL_String* pPath)
 {
   pPath->Set("");
 	char pathCStr[MAX_PATH_LEN];
@@ -569,7 +573,7 @@ void IGraphicsWin::PluginPath(WDL_String* pPath)
 void IGraphicsWin::PromptForFile(WDL_String* pFilename, EFileAction action, char* dir, char* extensions)
 {
   pFilename->Set("");
-	if (!WindowIsOpen()) { 
+	if (!WindowIsOpen()) {
 		return;
 	}
 
@@ -584,7 +588,7 @@ void IGraphicsWin::PromptForFile(WDL_String* pFilename, EFileAction action, char
   else {
     HostPath(&pathStr);
   }
-	
+
 	OPENFILENAME ofn;
 	memset(&ofn, 0, sizeof(OPENFILENAME));
 
@@ -632,7 +636,7 @@ void IGraphicsWin::PromptForFile(WDL_String* pFilename, EFileAction action, char
             rc = GetSaveFileName(&ofn);
             break;
 
-        case kFileOpen:     
+        case kFileOpen:
         default:
             ofn.Flags |= OFN_FILEMUSTEXIST;
     	    rc = GetOpenFileName(&ofn);
@@ -673,7 +677,7 @@ bool IGraphicsWin::PromptForColor(IColor* pColor, char* prompt)
     cc.lCustData = (LPARAM) prompt;
     cc.lpfnHook = CCHookProc;
     cc.Flags = CC_RGBINIT | CC_ANYCOLOR | CC_FULLOPEN | CC_SOLIDCOLOR | CC_ENABLEHOOK;
-    
+
     if (ChooseColor(&cc)) {
         pColor->R = GetRValue(cc.rgbResult);
         pColor->G = GetGValue(cc.rgbResult);
@@ -684,7 +688,7 @@ bool IGraphicsWin::PromptForColor(IColor* pColor, char* prompt)
 }
 
 #define MAX_INET_ERR_CODE 32
-bool IGraphicsWin::OpenURL(const char* url, 
+bool IGraphicsWin::OpenURL(const char* url,
   const char* msgWindowTitle, const char* confirmMsg, const char* errMsgOnFailure)
 {
   if (confirmMsg && MessageBox(mPlugWnd, confirmMsg, msgWindowTitle, MB_YESNO) != IDYES) {
@@ -709,7 +713,7 @@ bool IGraphicsWin::DrawIText(IText* pText, char* str, IRECT* pR)
   }
 
 	HDC pDC = mDrawBitmap->getDC();
-	
+
   bool setColor = (pText->mColor != mActiveFontColor);
 	if (!mFontActive) {
 		int h = pText->mSize;
@@ -722,12 +726,12 @@ bool IGraphicsWin::DrawIText(IText* pText, char* str, IRECT* pR)
 		mFontActive = true;
     setColor = true;
 	}
-	
+
 	if (setColor) {
 		SetTextColor(pDC, RGB(pText->mColor.R, pText->mColor.G, pText->mColor.B));
 		mActiveFontColor = pText->mColor;
 	}
-    
+
 	UINT fmt = DT_NOCLIP;
 	switch(pText->mAlign) {
 		case IText::kAlignCenter:	fmt |= DT_CENTER; break;
