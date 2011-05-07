@@ -4,11 +4,6 @@
 #define MAX_PARAM_DISPLAY_PRECISION 6
 #define MAX_PARAM_DISPLAY_LEN 8
 
-#ifndef MIN_DBL_EQUAL
-#define MIN_DBL_EQUAL 0.00001
-#endif
-
-
 IParam::IParam()
 :	mType(kTypeNone), mValue(0.0), mMin(0.0), mMax(1.0), mStep(1.0), 
     mDisplayPrecision(0), mNegateDisplay(false), mShape(1.0)
@@ -159,7 +154,7 @@ const char* IParam::GetDisplayText(double value)
   if (n) {
     DisplayText* pDT = mDisplayTexts.Get();
     for (int i = 0; i < n; ++i, ++pDT) {
-      if (fabs(value - pDT->mValue) < MIN_DBL_EQUAL) {
+      if (doubleIsEqual(value, pDT->mValue)){
         return pDT->mText;
       }
     }

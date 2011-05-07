@@ -34,6 +34,18 @@
 #define AMP_DB 8.685889638065036553
 #define IAMP_DB 0.11512925464970
 
+#define IPLUG_EPSILON 0.000001
+
+inline bool doubleIsZero(double value)
+{
+  return (-IPLUG_EPSILON < value) && (value < IPLUG_EPSILON);
+}
+
+inline bool doubleIsEqual(double a, double b)
+{
+  return doubleIsZero(a - b);
+}
+
 inline double DBToAmp(double dB)
 {
     return exp(IAMP_DB * dB);
