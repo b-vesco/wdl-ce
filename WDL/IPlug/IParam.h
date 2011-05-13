@@ -33,7 +33,7 @@ public:
   void InitDouble(const char* name, double defaultVal, double minVal, double maxVal, double step, const char* label = "");
 
   void Set(double value) { mValue = BOUNDED(value, mMin, mMax); }
-	void SetDisplayText(int value, const char* text);
+	void SetDisplayText(double value, const char* text);
 
   // The higher the shape, the more resolution around host value zero.
   void SetShape(double shape);
@@ -58,7 +58,7 @@ public:
 	const char* GetLabelForHost();
 
   int GetNDisplayTexts();
-	const char* GetDisplayText(int value);
+	const char* GetDisplayText(double value);
 	bool MapDisplayText(char* str, int* pValue);	// Reverse map back to value.
   void GetBounds(double* pMin, double* pMax);
 
@@ -73,7 +73,7 @@ private:
 	bool mNegateDisplay;
   
   struct DisplayText {
-    int mValue;
+    double mValue;
     char mText[MAX_PARAM_NAME_LEN];
   };
   WDL_TypedBuf<DisplayText> mDisplayTexts;

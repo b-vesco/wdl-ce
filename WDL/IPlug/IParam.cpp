@@ -69,7 +69,7 @@ void IParam::SetShape(double shape)
     }
 }
 
-void IParam::SetDisplayText(int value, const char* text) 
+void IParam::SetDisplayText(double value, const char* text) 
 {
   int n = mDisplayTexts.GetSize();
   mDisplayTexts.Resize(n + 1);
@@ -109,7 +109,7 @@ void IParam::GetDisplayForHost(double value, bool normalized, char* rDisplay)
         value = FromNormalizedParam(value, mMin, mMax, mShape);
     }
     
-    const char* displayText = GetDisplayText((int) value);
+    const char* displayText = GetDisplayText(value);
     if (CSTR_NOT_EMPTY(displayText)) {
         strcpy(rDisplay, displayText);
         return;
@@ -139,7 +139,7 @@ const char* IParam::GetNameForHost()
 
 const char* IParam::GetLabelForHost()
 {
-    const char* displayText = GetDisplayText((int) mValue);
+    const char* displayText = GetDisplayText( mValue);
     return (CSTR_NOT_EMPTY(displayText)) ? "" : mLabel;
 }
 
@@ -148,13 +148,13 @@ int IParam::GetNDisplayTexts()
   return mDisplayTexts.GetSize();
 }
 
-const char* IParam::GetDisplayText(int value)
+const char* IParam::GetDisplayText(double value)
 {
   int n = mDisplayTexts.GetSize();
   if (n) {
     DisplayText* pDT = mDisplayTexts.Get();
     for (int i = 0; i < n; ++i, ++pDT) {
-      if (value == pDT->mValue) {
+      if (doubleIsEqual(value, pDT->mValue)){
         return pDT->mText;
       }
     }
