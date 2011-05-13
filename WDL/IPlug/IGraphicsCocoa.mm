@@ -93,7 +93,8 @@ inline void EndUserInput(IGRAPHICS_COCOA* pGraphicsCocoa)
 
 - (void) drawRect: (NSRect) rect 
 {
-  if (mGraphics) mGraphics->Draw(&ToIRECT(mGraphics, &rect));
+  IRECT rct = ToIRECT(mGraphics, &rect);
+	if (mGraphics) mGraphics->Draw(&rct);
 }
 
 - (void) onTimer: (NSTimer*) pTimer
@@ -115,11 +116,12 @@ inline void EndUserInput(IGRAPHICS_COCOA* pGraphicsCocoa)
 {
   int x, y;
   [self getMouseXY:pEvent x:&x y:&y];
+  IMouseMod ms = GetMouseMod(pEvent);
   if ([pEvent clickCount] > 1) {
-    mGraphics->OnMouseDblClick(x, y, &GetMouseMod(pEvent));
+    mGraphics->OnMouseDblClick(x, y, &ms);
   }
   else {
-    mGraphics->OnMouseDown(x, y, &GetMouseMod(pEvent));
+    mGraphics->OnMouseDown(x, y, &ms);
   }
 }
 
@@ -127,14 +129,16 @@ inline void EndUserInput(IGRAPHICS_COCOA* pGraphicsCocoa)
 {
   int x, y;
   [self getMouseXY:pEvent x:&x y:&y];
-  mGraphics->OnMouseUp(x, y, &GetMouseMod(pEvent));
+  IMouseMod ms = GetMouseMod(pEvent);
+  mGraphics->OnMouseUp(x, y, &ms);
 }
 
 - (void) mouseDragged: (NSEvent*) pEvent
 {
   int x, y;
   [self getMouseXY:pEvent x:&x y:&y];
-  mGraphics->OnMouseDrag(x, y, &GetMouseMod(pEvent));
+  IMouseMod ms = GetMouseMod(pEvent);
+  mGraphics->OnMouseDrag(x, y, &ms);
 }
 
 - (void) rightMouseDown: (NSEvent*) pEvent
@@ -146,28 +150,32 @@ inline void EndUserInput(IGRAPHICS_COCOA* pGraphicsCocoa)
   }
   int x, y;
   [self getMouseXY:pEvent x:&x y:&y];
-  mGraphics->OnMouseDown(x, y, &GetRightMouseMod(pEvent));
+  IMouseMod ms = GetRightMouseMod(pEvent);
+  mGraphics->OnMouseDown(x, y, &ms);
 }
 
 - (void) rightMouseUp: (NSEvent*) pEvent
 {
   int x, y;
   [self getMouseXY:pEvent x:&x y:&y];
-  mGraphics->OnMouseUp(x, y, &GetRightMouseMod(pEvent));
+  IMouseMod ms = GetRightMouseMod(pEvent);
+  mGraphics->OnMouseUp(x, y, &ms);
 }
 
 - (void) rightMouseDragged: (NSEvent*) pEvent
 {
   int x, y;
   [self getMouseXY:pEvent x:&x y:&y];
-  mGraphics->OnMouseDrag(x, y, &GetRightMouseMod(pEvent));
+  IMouseMod ms = GetRightMouseMod(pEvent);
+  mGraphics->OnMouseDrag(x, y, &ms);
 }
 
 - (void) mouseMoved: (NSEvent*) pEvent
 {
   int x, y;
   [self getMouseXY:pEvent x:&x y:&y];
-  mGraphics->OnMouseOver(x, y, &GetMouseMod(pEvent));
+  IMouseMod ms = GetMouseMod(pEvent);
+  mGraphics->OnMouseOver(x, y, &ms);
 }
 
 - (void) scrollWheel: (NSEvent*) pEvent
@@ -175,7 +183,8 @@ inline void EndUserInput(IGRAPHICS_COCOA* pGraphicsCocoa)
   int x, y;
   [self getMouseXY:pEvent x:&x y:&y];
   int d = [pEvent deltaY];
-  mGraphics->OnMouseWheel(x, y, &GetMouseMod(pEvent), d);
+  IMouseMod ms = GetRightMouseMod(pEvent);
+  mGraphics->OnMouseWheel(x, y, &ms, d);
 }
 
 - (void) killTimer
